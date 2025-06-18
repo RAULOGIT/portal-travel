@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,6 +16,7 @@
             margin: 0;
             font-family: Arial, sans-serif;
         }
+
         #reserva-container {
             max-width: 700px;
             width: 95%;
@@ -22,11 +24,22 @@
             padding: 20px 30px 30px 30px;
             background: #fff;
             border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             border: 1px solid #e9e9e9;
         }
-        h2 { font-size: 1.8em; text-transform: uppercase; color: #0056b3; text-align: center; }
-        h4 { text-align: center; color: #333; }
+
+        h2 {
+            font-size: 1.8em;
+            text-transform: uppercase;
+            color: #0056b3;
+            text-align: center;
+        }
+
+        h4 {
+            text-align: center;
+            color: #333;
+        }
+
         #info-viaje {
             text-align: center;
             margin-top: -10px;
@@ -36,25 +49,55 @@
             border-radius: 5px;
             color: #333;
         }
-        #info-viaje h4 { margin: 0; font-size: 1.2em; }
-        #nombre-viaje { font-weight: bold; color: #0056b3; }
-        
+
+        #info-viaje h4 {
+            margin: 0;
+            font-size: 1.2em;
+        }
+
+        #nombre-viaje {
+            font-weight: bold;
+            color: #0056b3;
+        }
+
         fieldset {
             border: 1px solid #ccc;
             border-radius: 8px;
             padding: 15px;
             margin-bottom: 20px;
         }
+
         legend {
             padding: 0 10px;
             font-weight: bold;
             color: #0056b3;
         }
-        .input-group { margin-bottom: 15px; }
-        .form-row { display: flex; flex-wrap: wrap; gap: 15px; }
-        .form-row .input-group { flex: 1; min-width: 200px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; font-size: 0.9em; }
-        input, select {
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .form-row .input-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+            font-size: 0.9em;
+        }
+
+        input,
+        select {
             width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
@@ -62,6 +105,7 @@
             box-sizing: border-box;
             font-size: 1em;
         }
+
         button {
             width: 100%;
             padding: 14px;
@@ -75,29 +119,73 @@
             margin-top: 10px;
             transition: background-color 0.3s ease;
         }
-        button:hover { background-color: #218838; }
-        .display-id { font-weight: bold; color: #0056b3; }
-        
-        .terms-group { display: flex; align-items: center; gap: 10px; }
-        input[type="checkbox"] { width: auto; }
-        
-        #datos-pago { border: 1px dashed #0056b3; background-color: #f4f8ff; padding: 15px; border-radius: 8px; }
-        #datos-pago p { margin: 0 0 10px 0; }
 
-        #form-mensaje-final, #mensaje-duplicado { text-align: center; margin-top: 20px; font-weight: bold; padding: 15px; border-radius: 8px; display: none; }
-        .mensaje-exito { background-color: #d1e7dd; color: #0f5132; display: block !important; }
-        .mensaje-advertencia { background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; display: block !important;}
-        .mensaje-advertencia button { margin-top: 15px; background-color: #007bff; }
+        button:hover {
+            background-color: #218838;
+        }
+
+        .display-id {
+            font-weight: bold;
+            color: #0056b3;
+        }
+
+        .terms-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        input[type="checkbox"] {
+            width: auto;
+        }
+
+        #datos-pago {
+            border: 1px dashed #0056b3;
+            background-color: #f4f8ff;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        #datos-pago p {
+            margin: 0 0 10px 0;
+        }
+
+        #form-mensaje-final,
+        #mensaje-duplicado {
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .mensaje-exito {
+            background-color: #d1e7dd;
+            color: #0f5132;
+            display: block !important;
+        }
+
+        .mensaje-advertencia {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+            display: block !important;
+        }
+
+        .mensaje-advertencia button {
+            margin-top: 15px;
+            background-color: #007bff;
+        }
     </style>
 </head>
-<body>
 
+<body>
     <div id="reserva-container">
         <h2>RESERVA de Viaje</h2>
         <div id="info-viaje" style="display: none;">
-             <h4><span id="nombre-viaje"></span></h4>
+            <h4><span id="nombre-viaje"></span></h4>
         </div>
-
         <div id="vista-identificacion">
             <p style="text-align:center;">Ingresá tu DNI (sin puntos) para comenzar.</p>
             <form id="form-verificar-dni">
@@ -108,7 +196,6 @@
                 <button type="submit" style="background-color: #0056b3;">Continuar</button>
             </form>
         </div>
-
         <div id="vista-login" style="display:none;">
             <h4>¡Hola de nuevo! Reconocimos tu DNI <span id="dni-login" class="display-id"></span>.</h4>
             <p style="text-align:center;">Ingresá tu contraseña para confirmar tu reserva.</p>
@@ -120,7 +207,6 @@
                 <button type="submit">Ingresar y Reservar</button>
             </form>
         </div>
-
         <div id="vista-nuevo-usuario" style="display:none;">
             <h4>¡Bienvenido/a! Estás a un paso.</h4>
             <p style="text-align:center;">Tu DNI es <span id="dni-nuevo" class="display-id"></span>. <b>Completá el formulario de reserva</b> para crear tu cuenta.</p>
@@ -168,14 +254,11 @@
                 <button type="submit">Finalizar Reserva y Crear Cuenta</button>
             </form>
         </div>
-        
         <div id="mensaje-duplicado" style="display:none;"></div>
         <div id="form-mensaje-final" style="display:none;"></div>
     </div>
-
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // --- CONFIGURACIÓN INICIAL ---
+        document.addEventListener('DOMContentLoaded', function () {
             const urlParams = new URLSearchParams(window.location.search);
             const viajeSeleccionado = urlParams.get('viaje');
             let nombreViajeLimpio = "este viaje";
@@ -186,14 +269,14 @@
                 document.getElementById('info-viaje').style.display = 'block';
             }
 
-            // Base de datos simulada
             const baseDeDatosSimulada = {
                 '25111222': {
                     nombre: 'Raul Perez',
                     email: 'raul.perez@example.com',
-                    reservas: [
-                        { viaje: 'Maraton-Internacional-de-Mendoza', fechaReserva: '15/06/2025' }
-                    ]
+                    reservas: [{
+                        viaje: 'Maraton-Internacional-de-Mendoza',
+                        fechaReserva: '15/06/2025'
+                    }]
                 },
                 '30333444': {
                     nombre: 'Laura Gomez',
@@ -202,31 +285,23 @@
                 }
             };
 
-            // Referencias a los elementos del DOM
             const vistaIdentificacion = document.getElementById('vista-identificacion');
             const vistaLogin = document.getElementById('vista-login');
             const vistaNuevoUsuario = document.getElementById('vista-nuevo-usuario');
             const mensajeDuplicado = document.getElementById('mensaje-duplicado');
             const mensajeFinal = document.getElementById('form-mensaje-final');
-            
             const formVerificarDni = document.getElementById('form-verificar-dni');
             const formLogin = document.getElementById('form-login');
             const formNuevoUsuario = document.getElementById('form-nuevo-usuario');
 
-            // --- LÓGICA DE EVENTOS ---
-
-            // 1. Verificar DNI
-            formVerificarDni.addEventListener('submit', function(event) {
+            formVerificarDni.addEventListener('submit', function (event) {
                 event.preventDefault();
                 const dni = document.getElementById('dni-check').value.trim();
                 if (!dni) return;
-
                 const usuario = baseDeDatosSimulada[dni];
-                
                 if (usuario) {
                     const reservaExistente = usuario.reservas.find(reserva => reserva.viaje === viajeSeleccionado);
                     if (reservaExistente) {
-                        // DUPLICADO ENCONTRADO
                         vistaIdentificacion.style.display = 'none';
                         mensajeDuplicado.className = 'mensaje-advertencia';
                         mensajeDuplicado.innerHTML = `
@@ -234,11 +309,9 @@
                             <p>Tu reserva para viajar a <b>${nombreViajeLimpio}</b> ya se realizó el día ${reservaExistente.fechaReserva}.</p>
                             <p>A continuación te llevamos a tu cuenta para verificar saldos o consultas.</p>
                             <button onclick="alert('Redirigiendo a Mi Cuenta...');">Ir a mi Cuenta</button>`;
-                        return; 
+                        return;
                     }
                 }
-
-                // Flujo normal si no hay duplicado
                 vistaIdentificacion.style.display = 'none';
                 if (usuario) {
                     document.getElementById('dni-login').textContent = dni;
@@ -249,8 +322,7 @@
                 }
             });
 
-            // 2. Login de usuario existente
-            formLogin.addEventListener('submit', function(e){
+            formLogin.addEventListener('submit', function (e) {
                 e.preventDefault();
                 vistaLogin.style.display = 'none';
                 document.getElementById('info-viaje').style.display = 'none';
@@ -258,8 +330,7 @@
                 mensajeFinal.className = 'mensaje-exito';
             });
 
-            // 3. Registro de usuario nuevo
-            formNuevoUsuario.addEventListener('submit', function(e){
+            formNuevoUsuario.addEventListener('submit', function (e) {
                 e.preventDefault();
                 vistaNuevoUsuario.style.display = 'none';
                 document.getElementById('info-viaje').style.display = 'none';
@@ -269,4 +340,5 @@
         });
     </script>
 </body>
+
 </html>
