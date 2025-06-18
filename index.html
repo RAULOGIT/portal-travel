@@ -289,29 +289,31 @@
             const vistaLogin = document.getElementById('vista-login');
             const vistaNuevoUsuario = document.getElementById('vista-nuevo-usuario');
             const mensajeDuplicado = document.getElementById('mensaje-duplicado');
-            const mensajeFinal = document.getElementById('form-mensaje-final');
+            
             const formVerificarDni = document.getElementById('form-verificar-dni');
-            const formLogin = document.getElementById('form-login');
-            const formNuevoUsuario = document.getElementById('form-nuevo-usuario');
 
             formVerificarDni.addEventListener('submit', function (event) {
                 event.preventDefault();
                 const dni = document.getElementById('dni-check').value.trim();
                 if (!dni) return;
+
                 const usuario = baseDeDatosSimulada[dni];
+                
                 if (usuario) {
                     const reservaExistente = usuario.reservas.find(reserva => reserva.viaje === viajeSeleccionado);
                     if (reservaExistente) {
                         vistaIdentificacion.style.display = 'none';
                         mensajeDuplicado.className = 'mensaje-advertencia';
+                        // --- CAMBIO APLICADO AQUÍ ---
                         mensajeDuplicado.innerHTML = `
                             <h4>Atención</h4>
-                            <p>Tu reserva para viajar a <b>${nombreViajeLimpio}</b> ya se realizó el día ${reservaExistente.fechaReserva}.</p>
-                            <p>A continuación te llevamos a tu cuenta para verificar saldos o consultas.</p>
+                            <p>Tu reserva ya se realizó el día ${reservaExistente.fechaReserva}.</p>
+                            <p>Para verificar el estado de tu reserva y/o abonar cuotas, tocá IR A MI CUENTA.</p>
                             <button onclick="alert('Redirigiendo a Mi Cuenta...');">Ir a mi Cuenta</button>`;
                         return;
                     }
                 }
+                
                 vistaIdentificacion.style.display = 'none';
                 if (usuario) {
                     document.getElementById('dni-login').textContent = dni;
@@ -322,6 +324,11 @@
                 }
             });
 
+            // Lógica para los formularios de login y nuevo usuario
+            const formLogin = document.getElementById('form-login');
+            const formNuevoUsuario = document.getElementById('form-nuevo-usuario');
+            const mensajeFinal = document.getElementById('form-mensaje-final');
+            
             formLogin.addEventListener('submit', function (e) {
                 e.preventDefault();
                 vistaLogin.style.display = 'none';
