@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Travel Running</title>
+    <style>
+        body {
+            background-color: #f0f2f5; /* Un color de fondo suave para la página */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        #checkout-container {
+            font-family: Arial, sans-serif;
+            max-width: 550px;
+            width: 90%; /* Asegura que se vea bien en móviles */
+            margin: 20px auto;
+            padding: 30px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border: 1px solid #e9e9e9;
+        }
+        #checkout-container h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 25px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="email"], input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            background-color: #0056b3;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #004494;
+        }
+        .display-email {
+            font-weight: bold;
+            color: #0056b3;
+        }
+        #form-mensaje-final {
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+            padding: 12px;
+            border-radius: 5px;
+            display: none;
+        }
+        .mensaje-exito { background-color: #d1e7dd; color: #0f5132; display: block !important; }
+        .mensaje-error { background-color: #f8d7da; color: #842029; display: block !important; }
+    </style>
+</head>
+<body>
+
+    <div id="checkout-container">
+        <h2>Finalizá tu Reserva</h2>
+
+        <div id="vista-email">
+            <p>Ingresá tu email para continuar con la compra.</p>
+            <form id="form-verificar-email">
+                <div class="input-group">
+                    <label for="email-check">Email</label>
+                    <input type="email" id="email-check" required>
+                </div>
+                <button type="submit">Continuar</button>
+            </form>
+        </div>
+
+        <div id="vista-login" style="display:none;">
+            <h4>¡Qué bueno verte de nuevo, <span id="email-login" class="display-email"></span>!</h4>
+            <p>Ingresá tu contraseña para confirmar la reserva.</p>
+            <form id="form-login">
+                <div class="input-group">
+                    <label for="password-login">Contraseña</label>
+                    <input type="password" id="password-login" required>
+                </div>
+                <button type="submit">Ingresar y Contratar Viaje</button>
+            </form>
+        </div>
+
+        <div id="vista-nuevo-usuario" style="display:none;">
+            <h4>¡Bienvenido/a! Estás a un paso de tu viaje.</h4>
+            <p>Tu email es <span id="email-nuevo" class="display-email"></span>.</p>
+            <p>Completá tus datos y creá una contraseña para finalizar.</p>
+            <form id="form-nuevo-usuario">
+                <div class="input-group">
+                    <label for="nombre-nuevo">Nombre y Apellido</label>
+                    <input type="text" id="nombre-nuevo" required>
+                </div>
+                <div class="input-group">
+                    <label for="password-nuevo">Creá tu contraseña</label>
+                    <input type="password" id="password-nuevo" minlength="6" required>
+                </div>
+                <button type="submit">Crear Cuenta y Contratar Viaje</button>
+            </form>
+        </div>
+        
+        <div id="form-mensaje-final"></div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- BASE DE DATOS SIMULADA DE PASAJEROS ---
+            const usuariosExistentes = ['viajero@frecuente.com', 'otro@usuario.com', 'test@test.com'];
+
+            // Vistas
+            const vistaEmail = document.getElementById('vista-email');
+            const vistaLogin = document.getElementById('vista-login');
+            const vistaNuevoUsuario = document.getElementById('vista-nuevo-usuario');
+            
+            // Formularios
+            const formVerificar = document.getElementById('form-verificar-email');
+            const formLogin = document.getElementById('form-login');
+            const formNuevo = document.getElementById('form-nuevo-usuario');
+            
+            const mensajeFinal = document.getElementById('form-mensaje-final');
+
+            // Evento principal: verificar el email
+            formVerificar.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const emailInput = document.getElementById('email-check');
+                const email = emailInput.value.trim().toLowerCase();
+
+                if (!email) return;
+
+                // Ocultamos la vista inicial
+                vistaEmail.style.display = 'none';
+
+                // Verificamos si el usuario existe
+                if (usuariosExistentes.includes(email)) {
+                    // Es un usuario existente: mostramos el login
+                    document.getElementById('email-login').textContent = email;
+                    vistaLogin.style.display = 'block';
+                } else {
+                    // Es un usuario nuevo: mostramos el formulario de registro
+                    document.getElementById('email-nuevo').textContent = email;
+                    vistaNuevoUsuario.style.display = 'block';
+                }
+            });
+
+            // Simulación de login exitoso
+            formLogin.addEventListener('submit', function(e){
+                e.preventDefault();
+                vistaLogin.style.display = 'none';
+                mensajeFinal.textContent = '¡Gracias por tu compra! Tu viaje fue añadido a tu cuenta.';
+                mensajeFinal.className = 'mensaje-exito';
+            });
+
+            // Simulación de registro exitoso
+            formNuevo.addEventListener('submit', function(e){
+                e.preventDefault();
+                vistaNuevoUsuario.style.display = 'none';
+                mensajeFinal.textContent = '¡Felicitaciones! Tu cuenta fue creada y tu viaje confirmado.';
+                mensajeFinal.className = 'mensaje-exito';
+            });
+        });
+    </script>
+</body>
+</html>
