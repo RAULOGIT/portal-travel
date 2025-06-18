@@ -25,9 +25,8 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
             border: 1px solid #e9e9e9;
         }
-        h2, h4 { text-align: center; color: #333; }
-        /* CAMBIO: Título principal más grande */
-        h2 { font-size: 1.8em; text-transform: uppercase; color: #0056b3; }
+        h2 { font-size: 1.8em; text-transform: uppercase; color: #0056b3; text-align: center; }
+        h4 { text-align: center; color: #333; }
         #info-viaje {
             text-align: center;
             margin-top: -10px;
@@ -79,16 +78,12 @@
         button:hover { background-color: #218838; }
         .display-id { font-weight: bold; color: #0056b3; }
         
-        .terms-group { display: flex; align-items: center; gap: 10px; }
-        input[type="checkbox"] { width: auto; }
-        
-        /* CAMBIO: Estilos para la sección de pago */
-        #datos-pago { border: 1px dashed #0056b3; background-color: #f4f8ff; padding: 15px; border-radius: 8px; }
-        #datos-pago p { margin: 0 0 10px 0; }
-
-        #form-mensaje-final { text-align: center; margin-top: 20px; font-weight: bold; padding: 12px; border-radius: 5px; display: none; }
+        #form-mensaje-final, #mensaje-duplicado { text-align: center; margin-top: 20px; font-weight: bold; padding: 15px; border-radius: 8px; display: none; }
         .mensaje-exito { background-color: #d1e7dd; color: #0f5132; display: block !important; }
         .mensaje-error { background-color: #f8d7da; color: #842029; display: block !important; }
+        /* CAMBIO: Estilo para el mensaje de advertencia de duplicado */
+        .mensaje-advertencia { background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; display: block !important;}
+        .mensaje-advertencia button { margin-top: 15px; background-color: #007bff; }
     </style>
 </head>
 <body>
@@ -111,178 +106,188 @@
         </div>
 
         <div id="vista-login" style="display:none;">
-            <h4>¡Hola de nuevo! Reconocimos tu DNI <span id="dni-login" class="display-id"></span>.</h4>
-            <p style="text-align:center;">Ingresá tu contraseña para confirmar tu reserva.</p>
-            <form id="form-login">
-                <div class="input-group">
-                    <label for="password-login">Contraseña</label>
-                    <input type="password" id="password-login" required>
-                </div>
-                <button type="submit">Ingresar y Reservar</button>
-            </form>
-        </div>
+             </div>
 
         <div id="vista-nuevo-usuario" style="display:none;">
             <h4>¡Bienvenido/a! Estás a un paso.</h4>
-            <p style="text-align:center;">Tu DNI es <span id="dni-nuevo" class="display-id"></span>. Creá tu cuenta completando el formulario.</p>
+            <p style="text-align:center;">Tu DNI es <span id="dni-nuevo" class="display-id"></span>. <b>Completá el formulario de reserva</b> para crear tu cuenta.</p>
             <form id="form-nuevo-usuario">
                 <fieldset>
                     <legend>Datos Personales</legend>
+                    </fieldset>
+                
+                <fieldset>
+                    <legend>Domicilio</legend>
                     <div class="input-group">
-                        <label for="nombre-nuevo">Nombre y Apellido</label>
-                        <input type="text" id="nombre-nuevo" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="email-nuevo">Email (para enviarte la confirmación)</label>
-                        <input type="email" id="email-nuevo" required>
+                        <label for="calle-nuevo">Calle</label>
+                        <input type="text" id="calle-nuevo" required>
                     </div>
                     <div class="form-row">
+                        <div class="input-group" style="flex: 2;">
+                            <label for="numero-nuevo">Número</label>
+                            <input type="text" id="numero-nuevo" required>
+                        </div>
+                        <div class="input-group" style="flex: 1;">
+                            <label for="cp-nuevo">Código Postal</label>
+                            <input type="text" id="cp-nuevo" required>
+                        </div>
+                    </div>
+                     <div class="form-row">
                         <div class="input-group">
-                            <label for="nacimiento-nuevo">Fecha de Nacimiento</label>
-                            <input type="date" id="nacimiento-nuevo" required>
+                            <label for="ciudad-nuevo">Ciudad</label>
+                            <input type="text" id="ciudad-nuevo" required>
                         </div>
                         <div class="input-group">
-                            <label for="telefono-nuevo">Teléfono / WhatsApp</label>
-                            <input type="tel" id="telefono-nuevo" required>
+                            <label for="provincia-nuevo">Provincia</label>
+                            <input type="text" id="provincia-nuevo" required>
                         </div>
                     </div>
                 </fieldset>
 
                 <fieldset>
                     <legend>Datos de la Carrera</legend>
-                    <div class="input-group">
-                        <label for="running-team">Nombre de tu Running Team (Opcional)</label>
-                        <input type="text" id="running-team">
-                    </div>
-                    <div class="form-row">
-                        <div class="input-group">
-                            <label for="distancia-nuevo">Distancia</label>
-                            <select id="distancia-nuevo" required>
-                                <option value="">Seleccionar...</option>
-                                <option value="42k">42k</option>
-                                <option value="21k">21k</option>
-                                <option value="10k">10k</option>
-                            </select>
-                        </div>
-                        <div class="input-group">
-                            <label for="talle-nuevo">Talle de Remera</label>
-                            <select id="talle-nuevo" required>
-                                <option value="">Seleccionar...</option>
-                                <option value="XS">XS</option>
-                                <option value="S">S</option>
-                                <option value="M">M</option>
-                                <option value="L">L</option>
-                                <option value="XL">XL</option>
-                                <option value="XXL">XXL</option>
-                            </select>
-                        </div>
-                        <div class="input-group">
-                             <label for="molde-nuevo">Tipo de Molde</label>
-                            <select id="molde-nuevo" required>
-                                <option value="">Seleccionar...</option>
-                                <option value="Dama">Dama</option>
-                                <option value="Unisex">Unisex</option>
-                            </select>
-                        </div>
-                    </div>
-                </fieldset>
-                
-                <fieldset>
-                    <legend>Forma de Pago</legend>
-                    <div class="input-group">
-                        <label for="forma-pago">Modalidad</label>
-                        <select id="forma-pago" required>
-                            <option value="">Seleccionar...</option>
-                            <option value="Unico">Pago Único</option>
-                            <option value="Cuotas">Reserva + Cuotas</option>
-                        </select>
-                    </div>
-                    <div id="datos-pago">
-                        <p>Por favor, realizá la transferencia a la siguiente cuenta y adjuntá el comprobante.</p>
-                        <p><strong>CBU:</strong> 0001112223334445556667</p>
-                        <p><strong>Alias:</strong> TRAVEL.RUNNING.ARG</p>
-                        <p><strong>Titular:</strong> [Tu Nombre y Apellido]</p>
-                    </div>
-                     <div class="input-group" style="margin-top:15px;">
-                        <label for="comprobante">Adjuntar Comprobante de Pago</label>
-                        <input type="file" id="comprobante" required>
-                    </div>
-                </fieldset>
+                     </fieldset>
 
-                <fieldset>
-                    <legend>Creación de Cuenta</legend>
-                    <div class="input-group">
-                        <label for="password-nuevo">Creá tu contraseña para futuras reservas</label>
-                        <input type="password" id="password-nuevo" minlength="6" required>
-                    </div>
-                </fieldset>
-                
-                <button type="submit">Finalizar Reserva y Crear Cuenta</button>
-            </form>
+                </form>
         </div>
         
+        <div id="mensaje-duplicado"></div>
         <div id="form-mensaje-final"></div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Lógica para capturar el nombre del viaje desde la URL (sin cambios)
-            const urlParams = new URLSearchParams(window.location.search);
-            const viajeSeleccionado = urlParams.get('viaje');
-            if (viajeSeleccionado) {
-                const nombreViajeLimpio = viajeSeleccionado.replace(/-/g, ' ');
-                document.getElementById('nombre-viaje').textContent = nombreViajeLimpio;
-                document.getElementById('info-viaje').style.display = 'block';
+<script>
+    // Para que sea más fácil copiar, aquí está el código HTML y SCRIPT completo y funcional
+    
+    // Contenido completo de las vistas ocultas
+    document.getElementById('vista-login').innerHTML = `
+        <h4>¡Hola de nuevo! Reconocimos tu DNI <span id="dni-login" class="display-id"></span>.</h4>
+        <p style="text-align:center;">Ingresá tu contraseña para confirmar tu reserva.</p>
+        <form id="form-login">
+            <div class="input-group">
+                <label for="password-login">Contraseña</label>
+                <input type="password" id="password-login" required>
+            </div>
+            <button type="submit">Ingresar y Reservar</button>
+        </form>`;
+        
+    document.getElementById('vista-nuevo-usuario').innerHTML = `
+        <h4>¡Bienvenido/a! Estás a un paso.</h4>
+        <p style="text-align:center;">Tu DNI es <span id="dni-nuevo" class="display-id"></span>. <b>Completá el formulario de reserva</b> para crear tu cuenta.</p>
+        <form id="form-nuevo-usuario" novalidate>
+            <fieldset>
+                <legend>Datos Personales</legend>
+                <div class="input-group">
+                    <label for="nombre-nuevo">Nombre y Apellido</label>
+                    <input type="text" id="nombre-nuevo" required>
+                </div>
+                <div class="input-group">
+                    <label for="email-nuevo">Email (para enviarte la confirmación)</label>
+                    <input type="email" id="email-nuevo" required>
+                </div>
+                <div class="form-row">
+                    <div class="input-group">
+                        <label for="nacimiento-nuevo">Fecha de Nacimiento</label>
+                        <input type="date" id="nacimiento-nuevo" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="telefono-nuevo">Teléfono / WhatsApp</label>
+                        <input type="tel" id="telefono-nuevo" required>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Domicilio</legend>
+                <div class="input-group">
+                    <label for="calle-nuevo">Calle</label>
+                    <input type="text" id="calle-nuevo" required>
+                </div>
+                <div class="form-row">
+                    <div class="input-group" style="flex: 3;">
+                        <label for="ciudad-nuevo">Ciudad</label>
+                        <input type="text" id="ciudad-nuevo" required>
+                    </div>
+                    <div class="input-group" style="flex: 1;">
+                        <label for="numero-nuevo">Número</label>
+                        <input type="text" id="numero-nuevo" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="input-group">
+                        <label for="provincia-nuevo">Provincia</label>
+                        <input type="text" id="provincia-nuevo" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="cp-nuevo">Código Postal</label>
+                        <input type="text" id="cp-nuevo" required>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Datos de la Carrera</legend>
+                <div class="input-group"><label for="running-team">Nombre de tu Running Team (Opcional)</label><input type="text" id="running-team"></div>
+                <div class="form-row">
+                    <div class="input-group"><label for="distancia-nuevo">Distancia</label><select id="distancia-nuevo" required><option value="">Seleccionar...</option><option value="42k">42k</option><option value="21k">21k</option><option value="10k">10k</option></select></div>
+                    <div class="input-group"><label for="talle-nuevo">Talle de Remera</label><select id="talle-nuevo" required><option value="">Seleccionar...</option><option value="XS">XS</option><option value="S">S</option><option value="M">M</option><option value="L">L</option><option value="XL">XL</option><option value="XXL">XXL</option></select></div>
+                    <div class="input-group"><label for="molde-nuevo">Tipo de Molde</label><select id="molde-nuevo" required><option value="">Seleccionar...</option><option value="Dama">Dama</option><option value="Unisex">Unisex</option></select></div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Forma de Pago</legend>
+                <div class="input-group"><label for="forma-pago">Modalidad</label><select id="forma-pago" required><option value="">Seleccionar...</option><option value="Unico">Pago Único</option><option value="Cuotas">Reserva + Cuotas</option></select></div>
+                <div id="datos-pago"><p>Por favor, realizá la transferencia a la siguiente cuenta y adjuntá el comprobante.</p><p><strong>CBU:</strong> 0001112223334445556667</p><p><strong>Alias:</strong> TRAVEL.RUNNING.ARG</p><p><strong>Titular:</strong> [Tu Nombre y Apellido]</p></div>
+                <div class="input-group" style="margin-top:15px;"><label for="comprobante">Adjuntar Comprobante de Pago</label><input type="file" id="comprobante" required></div>
+            </fieldset>
+            <fieldset>
+                <legend>Creación de Cuenta</legend>
+                <div class="input-group"><label for="password-nuevo">Creá tu contraseña para futuras reservas</label><input type="password" id="password-nuevo" minlength="6" required></div>
+            </fieldset>
+            <button type="submit">Finalizar Reserva y Crear Cuenta</button>
+        </form>`;
+
+    // SCRIPT COMPLETO v5
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const viajeSeleccionado = urlParams.get('viaje');
+        let nombreViajeLimpio = "este viaje";
+
+        if (viajeSeleccionado) {
+            nombreViajeLimpio = viajeSeleccionado.replace(/-/g, ' ');
+            document.getElementById('nombre-viaje').textContent = nombreViajeLimpio;
+            document.getElementById('info-viaje').style.display = 'block';
+        }
+
+        // CAMBIO: Base de datos simulada más compleja
+        const baseDeDatosSimulada = {
+            '25111222': {
+                nombre: 'Raul Perez',
+                email: 'raul.perez@example.com',
+                reservas: [
+                    { viaje: 'Maraton-Internacional-de-Mendoza', fechaReserva: '15/06/2025' }
+                ]
+            },
+            '30333444': {
+                nombre: 'Laura Gomez',
+                email: 'laura.gomez@example.com',
+                reservas: []
             }
+        };
 
-            // CAMBIO: La "base de datos" ahora usa DNIs
-            const dnisExistentes = ['25111222', '30333444', '12345678'];
+        const vistaIdentificacion = document.getElementById('vista-identificacion');
+        const vistaLogin = document.getElementById('vista-login');
+        const vistaNuevoUsuario = document.getElementById('vista-nuevo-usuario');
+        const formVerificarDni = document.getElementById('form-verificar-dni');
+        const mensajeDuplicado = document.getElementById('mensaje-duplicado');
 
-            // Referencias a las vistas
-            const vistaIdentificacion = document.getElementById('vista-identificacion');
-            const vistaLogin = document.getElementById('vista-login');
-            const vistaNuevoUsuario = document.getElementById('vista-nuevo-usuario');
-            const formVerificarDni = document.getElementById('form-verificar-dni');
+        formVerificarDni.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const dni = document.getElementById('dni-check').value.trim();
+            if (!dni) return;
+
+            const usuario = baseDeDatosSimulada[dni];
             
-            // Evento principal: verificar el DNI
-            formVerificarDni.addEventListener('submit', function(event) {
-                event.preventDefault();
-                const dniInput = document.getElementById('dni-check');
-                const dni = dniInput.value.trim();
-                if (!dni) return;
-
-                vistaIdentificacion.style.display = 'none';
-
-                if (dnisExistentes.includes(dni)) {
-                    // Usuario existente
-                    document.getElementById('dni-login').textContent = dni;
-                    vistaLogin.style.display = 'block';
-                } else {
-                    // Usuario nuevo
-                    document.getElementById('dni-nuevo').textContent = dni;
-                    vistaNuevoUsuario.style.display = 'block';
-                }
-            });
-
-            // Simulación de los formularios de login y nuevo usuario (sin grandes cambios en la lógica)
-            const mensajeFinal = document.getElementById('form-mensaje-final');
-            
-            document.getElementById('form-login').addEventListener('submit', function(e){
-                e.preventDefault();
-                vistaLogin.style.display = 'none';
-                document.getElementById('info-viaje').style.display = 'none';
-                mensajeFinal.textContent = `¡Reserva confirmada para ${viajeSeleccionado ? viajeSeleccionado.replace(/-/g, ' ') : 'el viaje'}! Gracias por volver a elegirnos.`;
-                mensajeFinal.className = 'mensaje-exito';
-            });
-
-            document.getElementById('form-nuevo-usuario').addEventListener('submit', function(e){
-                e.preventDefault();
-                vistaNuevoUsuario.style.display = 'none';
-                document.getElementById('info-viaje').style.display = 'none';
-                mensajeFinal.textContent = `¡Felicitaciones! Tu cuenta fue creada y tu reserva para ${viajeSeleccionado ? viajeSeleccionado.replace(/-/g, ' ') : 'el viaje'} fue confirmada. Recibirás un email con los detalles.`;
-                mensajeFinal.className = 'mensaje-exito';
-            });
-        });
-    </script>
-</body>
-</html>
+            // CAMBIO: Lógica para detectar duplicados
+            if (usuario) {
+                const reservaExistente = usuario.reservas.find(reserva => reserva.viaje === viajeSeleccionado);
+                if (reservaExistente) {
+                    // DUPLICADO ENCONTRADO
+                    vistaIdentificacion.style.display
