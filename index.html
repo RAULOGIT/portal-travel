@@ -3,37 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscripción - Travel Running</title>
+    <title>Reserva de Viaje - Travel Running</title>
     <style>
         body {
             background-color: #f0f2f5;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px 0;
+            padding: 30px 0;
             min-height: 100vh;
             margin: 0;
             font-family: Arial, sans-serif;
         }
-        #checkout-container {
-            max-width: 650px;
+        #reserva-container {
+            max-width: 700px;
             width: 95%;
             margin: 20px auto;
-            padding: 30px;
+            padding: 20px 30px 30px 30px;
             background: #fff;
             border-radius: 10px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
             border: 1px solid #e9e9e9;
         }
         h2, h4 { text-align: center; color: #333; }
+        /* CAMBIO: Título principal más grande */
+        h2 { font-size: 1.8em; text-transform: uppercase; color: #0056b3; }
         #info-viaje {
             text-align: center;
+            margin-top: -10px;
             margin-bottom: 25px;
-            padding: 10px;
-            background-color: #e9f5ff;
-            border-left: 4px solid #0056b3;
+            padding: 12px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            color: #333;
         }
-        #info-viaje h4 { margin: 0; font-size: 1.2em; color: #333; }
+        #info-viaje h4 { margin: 0; font-size: 1.2em; }
         #nombre-viaje { font-weight: bold; color: #0056b3; }
         
         fieldset {
@@ -48,15 +52,10 @@
             color: #0056b3;
         }
         .input-group { margin-bottom: 15px; }
-        .form-row {
-            display: flex;
-            gap: 15px;
-        }
-        .form-row .input-group {
-            flex: 1;
-        }
+        .form-row { display: flex; flex-wrap: wrap; gap: 15px; }
+        .form-row .input-group { flex: 1; min-width: 200px; }
         label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; font-size: 0.9em; }
-        input[type="email"], input[type="text"], input[type="password"], input[type="date"], input[type="tel"], select {
+        input, select {
             width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
@@ -66,22 +65,26 @@
         }
         button {
             width: 100%;
-            padding: 12px;
+            padding: 14px;
             border: none;
             border-radius: 5px;
             background-color: #28a745;
             color: white;
-            font-size: 16px;
+            font-size: 18px;
             font-weight: bold;
             cursor: pointer;
             margin-top: 10px;
             transition: background-color 0.3s ease;
         }
         button:hover { background-color: #218838; }
-        .display-email { font-weight: bold; color: #0056b3; }
+        .display-id { font-weight: bold; color: #0056b3; }
         
         .terms-group { display: flex; align-items: center; gap: 10px; }
         input[type="checkbox"] { width: auto; }
+        
+        /* CAMBIO: Estilos para la sección de pago */
+        #datos-pago { border: 1px dashed #0056b3; background-color: #f4f8ff; padding: 15px; border-radius: 8px; }
+        #datos-pago p { margin: 0 0 10px 0; }
 
         #form-mensaje-final { text-align: center; margin-top: 20px; font-weight: bold; padding: 12px; border-radius: 5px; display: none; }
         .mensaje-exito { background-color: #d1e7dd; color: #0f5132; display: block !important; }
@@ -90,38 +93,38 @@
 </head>
 <body>
 
-    <div id="checkout-container">
-        <h2>Inscripción</h2>
+    <div id="reserva-container">
+        <h2>RESERVA de Viaje</h2>
         <div id="info-viaje" style="display: none;">
-             <h4>Estás inscribiéndote a: <span id="nombre-viaje"></span></h4>
+             <h4><span id="nombre-viaje"></span></h4>
         </div>
 
-        <div id="vista-email">
-            <p style="text-align:center;">Ingresá tu email para continuar.</p>
-            <form id="form-verificar-email">
+        <div id="vista-identificacion">
+            <p style="text-align:center;">Ingresá tu DNI (sin puntos) para comenzar.</p>
+            <form id="form-verificar-dni">
                 <div class="input-group">
-                    <label for="email-check">Email</label>
-                    <input type="email" id="email-check" required>
+                    <label for="dni-check">DNI</label>
+                    <input type="tel" id="dni-check" pattern="[0-9]{7,8}" required>
                 </div>
                 <button type="submit" style="background-color: #0056b3;">Continuar</button>
             </form>
         </div>
 
         <div id="vista-login" style="display:none;">
-            <h4>¡Qué bueno verte de nuevo, <span id="email-login" class="display-email"></span>!</h4>
-            <p style="text-align:center;">Ingresá tu contraseña para cargar esta nueva inscripción a tu cuenta.</p>
+            <h4>¡Hola de nuevo! Reconocimos tu DNI <span id="dni-login" class="display-id"></span>.</h4>
+            <p style="text-align:center;">Ingresá tu contraseña para confirmar tu reserva.</p>
             <form id="form-login">
                 <div class="input-group">
                     <label for="password-login">Contraseña</label>
                     <input type="password" id="password-login" required>
                 </div>
-                <button type="submit">Ingresar y Continuar</button>
+                <button type="submit">Ingresar y Reservar</button>
             </form>
         </div>
 
         <div id="vista-nuevo-usuario" style="display:none;">
             <h4>¡Bienvenido/a! Estás a un paso.</h4>
-            <p style="text-align:center;">Tu email es <span id="email-nuevo" class="display-email"></span>. Completá el formulario para crear tu cuenta y finalizar la inscripción.</p>
+            <p style="text-align:center;">Tu DNI es <span id="dni-nuevo" class="display-id"></span>. Creá tu cuenta completando el formulario.</p>
             <form id="form-nuevo-usuario">
                 <fieldset>
                     <legend>Datos Personales</legend>
@@ -129,24 +132,28 @@
                         <label for="nombre-nuevo">Nombre y Apellido</label>
                         <input type="text" id="nombre-nuevo" required>
                     </div>
+                    <div class="input-group">
+                        <label for="email-nuevo">Email (para enviarte la confirmación)</label>
+                        <input type="email" id="email-nuevo" required>
+                    </div>
                     <div class="form-row">
-                        <div class="input-group">
-                            <label for="dni-nuevo">DNI (sin puntos)</label>
-                            <input type="text" id="dni-nuevo" pattern="[0-9]{7,8}" required>
-                        </div>
                         <div class="input-group">
                             <label for="nacimiento-nuevo">Fecha de Nacimiento</label>
                             <input type="date" id="nacimiento-nuevo" required>
                         </div>
-                    </div>
-                    <div class="input-group">
-                        <label for="telefono-nuevo">Teléfono / WhatsApp</label>
-                        <input type="tel" id="telefono-nuevo" required>
+                        <div class="input-group">
+                            <label for="telefono-nuevo">Teléfono / WhatsApp</label>
+                            <input type="tel" id="telefono-nuevo" required>
+                        </div>
                     </div>
                 </fieldset>
 
                 <fieldset>
                     <legend>Datos de la Carrera</legend>
+                    <div class="input-group">
+                        <label for="running-team">Nombre de tu Running Team (Opcional)</label>
+                        <input type="text" id="running-team">
+                    </div>
                     <div class="form-row">
                         <div class="input-group">
                             <label for="distancia-nuevo">Distancia</label>
@@ -161,40 +168,56 @@
                             <label for="talle-nuevo">Talle de Remera</label>
                             <select id="talle-nuevo" required>
                                 <option value="">Seleccionar...</option>
+                                <option value="XS">XS</option>
                                 <option value="S">S</option>
                                 <option value="M">M</option>
                                 <option value="L">L</option>
                                 <option value="XL">XL</option>
+                                <option value="XXL">XXL</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                             <label for="molde-nuevo">Tipo de Molde</label>
+                            <select id="molde-nuevo" required>
+                                <option value="">Seleccionar...</option>
+                                <option value="Dama">Dama</option>
+                                <option value="Unisex">Unisex</option>
                             </select>
                         </div>
                     </div>
                 </fieldset>
-
+                
                 <fieldset>
-                    <legend>Contacto de Emergencia</legend>
+                    <legend>Forma de Pago</legend>
                     <div class="input-group">
-                        <label for="emergencia-nombre">Nombre y Apellido</label>
-                        <input type="text" id="emergencia-nombre" required>
+                        <label for="forma-pago">Modalidad</label>
+                        <select id="forma-pago" required>
+                            <option value="">Seleccionar...</option>
+                            <option value="Unico">Pago Único</option>
+                            <option value="Cuotas">Reserva + Cuotas</option>
+                        </select>
                     </div>
-                    <div class="input-group">
-                        <label for="emergencia-telefono">Teléfono</label>
-                        <input type="tel" id="emergencia-telefono" required>
+                    <div id="datos-pago">
+                        <p>Por favor, realizá la transferencia a la siguiente cuenta y adjuntá el comprobante.</p>
+                        <p><strong>CBU:</strong> 0001112223334445556667</p>
+                        <p><strong>Alias:</strong> TRAVEL.RUNNING.ARG</p>
+                        <p><strong>Titular:</strong> [Tu Nombre y Apellido]</p>
+                    </div>
+                     <div class="input-group" style="margin-top:15px;">
+                        <label for="comprobante">Adjuntar Comprobante de Pago</label>
+                        <input type="file" id="comprobante" required>
                     </div>
                 </fieldset>
-                
+
                 <fieldset>
                     <legend>Creación de Cuenta</legend>
                     <div class="input-group">
-                        <label for="password-nuevo">Creá tu contraseña</label>
+                        <label for="password-nuevo">Creá tu contraseña para futuras reservas</label>
                         <input type="password" id="password-nuevo" minlength="6" required>
                     </div>
                 </fieldset>
                 
-                <div class="input-group terms-group">
-                    <input type="checkbox" id="terms" name="terms" required>
-                    <label for="terms">Acepto los términos y condiciones.</label>
-                </div>
-                <button type="submit">Crear Cuenta e Inscribirme</button>
+                <button type="submit">Finalizar Reserva y Crear Cuenta</button>
             </form>
         </div>
         
@@ -203,54 +226,60 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Lógica para capturar el nombre del viaje desde la URL (sin cambios)
             const urlParams = new URLSearchParams(window.location.search);
             const viajeSeleccionado = urlParams.get('viaje');
-
             if (viajeSeleccionado) {
                 const nombreViajeLimpio = viajeSeleccionado.replace(/-/g, ' ');
                 document.getElementById('nombre-viaje').textContent = nombreViajeLimpio;
                 document.getElementById('info-viaje').style.display = 'block';
             }
 
-            const usuariosExistentes = ['viajero@frecuente.com', 'otro@usuario.com', 'test@test.com'];
-            const vistaEmail = document.getElementById('vista-email');
+            // CAMBIO: La "base de datos" ahora usa DNIs
+            const dnisExistentes = ['25111222', '30333444', '12345678'];
+
+            // Referencias a las vistas
+            const vistaIdentificacion = document.getElementById('vista-identificacion');
             const vistaLogin = document.getElementById('vista-login');
             const vistaNuevoUsuario = document.getElementById('vista-nuevo-usuario');
-            const formVerificar = document.getElementById('form-verificar-email');
+            const formVerificarDni = document.getElementById('form-verificar-dni');
             
-            formVerificar.addEventListener('submit', function(event) {
+            // Evento principal: verificar el DNI
+            formVerificarDni.addEventListener('submit', function(event) {
                 event.preventDefault();
-                const emailInput = document.getElementById('email-check');
-                const email = emailInput.value.trim().toLowerCase();
-                if (!email) return;
+                const dniInput = document.getElementById('dni-check');
+                const dni = dniInput.value.trim();
+                if (!dni) return;
 
-                vistaEmail.style.display = 'none';
+                vistaIdentificacion.style.display = 'none';
 
-                if (usuariosExistentes.includes(email)) {
-                    document.getElementById('email-login').textContent = email;
+                if (dnisExistentes.includes(dni)) {
+                    // Usuario existente
+                    document.getElementById('dni-login').textContent = dni;
                     vistaLogin.style.display = 'block';
                 } else {
-                    document.getElementById('email-nuevo').textContent = email;
+                    // Usuario nuevo
+                    document.getElementById('dni-nuevo').textContent = dni;
                     vistaNuevoUsuario.style.display = 'block';
                 }
             });
 
-            // Simulación de los formularios de login y nuevo usuario
-            const formLogin = document.getElementById('form-login');
-            const formNuevo = document.getElementById('form-nuevo-usuario');
+            // Simulación de los formularios de login y nuevo usuario (sin grandes cambios en la lógica)
             const mensajeFinal = document.getElementById('form-mensaje-final');
             
-            formLogin.addEventListener('submit', function(e){
+            document.getElementById('form-login').addEventListener('submit', function(e){
                 e.preventDefault();
                 vistaLogin.style.display = 'none';
-                mensajeFinal.textContent = `¡Inscripción confirmada para ${viajeSeleccionado.replace(/-/g, ' ')}! Tu reserva fue añadida a tu cuenta.`;
+                document.getElementById('info-viaje').style.display = 'none';
+                mensajeFinal.textContent = `¡Reserva confirmada para ${viajeSeleccionado ? viajeSeleccionado.replace(/-/g, ' ') : 'el viaje'}! Gracias por volver a elegirnos.`;
                 mensajeFinal.className = 'mensaje-exito';
             });
 
-            formNuevo.addEventListener('submit', function(e){
+            document.getElementById('form-nuevo-usuario').addEventListener('submit', function(e){
                 e.preventDefault();
                 vistaNuevoUsuario.style.display = 'none';
-                mensajeFinal.textContent = `¡Felicitaciones! Tu cuenta fue creada y tu inscripción a ${viajeSeleccionado.replace(/-/g, ' ')} fue confirmada.`;
+                document.getElementById('info-viaje').style.display = 'none';
+                mensajeFinal.textContent = `¡Felicitaciones! Tu cuenta fue creada y tu reserva para ${viajeSeleccionado ? viajeSeleccionado.replace(/-/g, ' ') : 'el viaje'} fue confirmada. Recibirás un email con los detalles.`;
                 mensajeFinal.className = 'mensaje-exito';
             });
         });
