@@ -5,235 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reserva de Viaje - Travel Running</title>
     <style>
-        /* =================================== */
-        /* ACÁ VA EL CÓDIGO CSS (PARTE 1)   */
-        body {
-            background-color: #f0f2f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 30px 0;
-            min-height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-
-        #reserva-container {
-            max-width: 700px;
-            width: 95%;
-            margin: 20px auto;
-            padding: 20px 30px 30px 30px;
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            border: 1px solid #e9e9e9;
-        }
-
-        h2 {
-            font-size: 1.8em;
-            text-transform: uppercase;
-            color: #0056b3;
-            text-align: center;
-        }
-
-        h4 {
-            text-align: center;
-            color: #333;
-        }
-
-        #info-viaje {
-            text-align: center;
-            margin-top: -10px;
-            margin-bottom: 25px;
-            padding: 12px;
-            background-color: #f8f9fa;
-            border-radius: 5px;
-            color: #333;
-        }
-
-        #info-viaje h4 {
-            margin: 0;
-            font-size: 1.2em;
-        }
-
-        #nombre-viaje {
-            font-weight: bold;
-            color: #0056b3;
-        }
-
-        fieldset {
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-
-        legend {
-            padding: 0 10px;
-            font-weight: bold;
-            color: #0056b3;
-        }
-
-        .input-group {
-            margin-bottom: 15px;
-        }
-        
-        .radio-group {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
-
-        .radio-group label {
-            font-weight: normal;
-        }
-        
-        .radio-option {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .form-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .form-row .input-group {
-            flex: 1;
-            min-width: 200px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #555;
-            font-size: 0.9em;
-        }
-
-        input,
-        select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-            font-size: 1em;
-        }
-        
-        input:disabled, select:disabled {
-            background-color: #e9ecef;
-            opacity: 0.7;
-            cursor: not-allowed;
-        }
-
-        button {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 5px;
-            background-color: #28a745;
-            color: white;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #218838;
-        }
-        
-        .btn-volver {
-            background-color: #6c757d;
-            font-size: 16px;
-            margin-top: 15px;
-        }
-
-        .btn-volver:hover {
-            background-color: #5a6268;
-        }
-
-
-        .display-id {
-            font-weight: bold;
-            color: #0056b3;
-        }
-
-        .terms-group {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 10px;
-        }
-        
-        .terms-group label {
-            font-weight: normal;
-        }
-
-        input[type="checkbox"], input[type="radio"] {
-            width: auto;
-        }
-
-        #datos-pago {
-            border: 1px dashed #0056b3;
-            background-color: #f4f8ff;
-            padding: 15px;
-            border-radius: 8px;
-        }
-
-        #datos-pago p {
-            margin: 0 0 10px 0;
-        }
-
-        #form-mensaje-final,
-        #mensaje-duplicado {
-            text-align: center;
-            margin-top: 20px;
-            font-weight: bold;
-            padding: 15px;
-            border-radius: 8px;
-            display: none;
-        }
-
-        .mensaje-exito {
-            background-color: #d1e7dd;
-            color: #0f5132;
-            display: block !important;
-        }
-
-        .mensaje-advertencia {
-            background-color: #fff3cd;
-            color: #856404;
-            border: 1px solid #ffeeba;
-            display: block !important;
-        }
-
-        .mensaje-advertencia button {
-            margin-top: 15px;
-            background-color: #007bff;
-        }
-        
-        .error-mensaje {
-            color: #721c24;
-            background-color: #f8d7da;
-            border: 1px solid #f5c6cb;
-            padding: 10px;
-            border-radius: 5px;
-            margin-top: 10px;
-            text-align: center;
-            display: none;
-        }
-        
-        /* Estilo para el contenedor de datos del usuario */
-        #datos-registrados-container p {
-            margin: 8px 0;
-            font-size: 1em;
-        }
-        /* =================================== */
         body {
             background-color: #f0f2f5;
             display: flex;
@@ -463,212 +234,8 @@
     </style>
 </head>
 <body>
-    <div id="reserva-container">
-        <h2>RESERVA de Viaje</h2>
-        <div id="info-viaje" style="display: none;">
-            <h4><span id="nombre-viaje"></span></h4>
-        </div>
-        <div id="vista-identificacion">
-            <p style="text-align:center;">Ingresá tu DNI (sin puntos) para comenzar.</p>
-            <form id="form-verificar-dni">
-                <div class="input-group">
-                    <label for="dni-check">DNI</label>
-                    <input type="tel" id="dni-check" pattern="[0-9]{7,8}" required>
-                </div>
-                <button type="submit" style="background-color: #0056b3;">Continuar</button>
-            </form>
-        </div>
-        <div id="vista-login" style="display:none;">
-            <h4>¡Hola de nuevo! Reconocimos tu DNI <span id="dni-login" class="display-id"></span>.</h4>
-            <p style="text-align:center;">Ingresá tu contraseña para continuar.</p>
-            <form id="form-login">
-                <div class="input-group">
-                    <label for="password-login">Contraseña</label>
-                    <input type="password" id="password-login" required>
-                </div>
-                <p id="login-error" class="error-mensaje"></p>
-                <button type="submit">Ingresar y Continuar</button>
-                <button type="button" class="btn-volver">Corregir DNI</button>
-            </form>
-        </div>
-        <div id="vista-nuevo-usuario" style="display:none;">
-            <h4>¡Bienvenido/a! Estás a un paso.</h4>
-            <p style="text-align:center;">Tu DNI es <span id="dni-nuevo" class="display-id"></span>. <b>Completá el formulario de reserva</b>.</p>
-            <form id="form-nuevo-usuario" novalidate>
-                <fieldset>
-                    <legend>Datos Personales</legend>
-                    <div class="input-group"><label for="nombre-nuevo">Nombre y Apellido</label><input type="text" id="nombre-nuevo" required></div>
-                    <div class="input-group"><label for="email-nuevo">Email (para enviarte la confirmación)</label><input type="email" id="email-nuevo" required></div>
-                    <div class="form-row">
-                        <div class="input-group">
-                            <label for="nacimiento-nuevo">Fecha de Nacimiento</label>
-                            <input type="text" id="nacimiento-nuevo" placeholder="DD/MM/AAAA" pattern="\d{2}/\d{2}/\d{4}" required>
-                        </div>
-                        <div class="input-group"><label for="telefono-nuevo">Teléfono / WhatsApp</label><input type="tel" id="telefono-nuevo" required></div>
-                    </div>
-                    <div class="input-group">
-                        <label>¿Sos celíaca/o?</label>
-                        <div class="radio-group">
-                           <div class="radio-option"><input type="radio" id="celiaco-si" name="celiaco" value="si" required><label for="celiaco-si">Sí</label></div>
-                           <div class="radio-option"><input type="radio" id="celiaco-no" name="celiaco" value="no" checked><label for="celiaco-no">No</label></div>
-                        </div>
-                    </div>
-                </fieldset>
-                <fieldset>
-                    <legend>Domicilio</legend>
-                    <div class="form-row">
-                        <div class="input-group" style="flex: 3;"><label for="calle-nuevo">Calle</label><input type="text" id="calle-nuevo" required></div>
-                        <div class="input-group" style="flex: 1;"><label for="numero-nuevo">Número</label><input type="text" id="numero-nuevo" required></div>
-                    </div>
-                    <div class="form-row">
-                        <div class="input-group" style="flex: 2;"><label for="ciudad-nuevo">Ciudad</label><input type="text" id="ciudad-nuevo" required></div>
-                        <div class="input-group" style="flex: 1;"><label for="cp-nuevo">Código Postal</label><input type="text" id="cp-nuevo" required></div>
-                    </div>
-                     <div class="input-group"><label for="provincia-nuevo">Provincia</label><input type="text" id="provincia-nuevo" required></div>
-                </fieldset>
-                <fieldset>
-                    <legend>Datos del Viaje</legend>
-                     <div class="input-group"><label for="acompanantes-nuevo">Persona/s con quien compartís el viaje (Opcional)</label><input type="text" id="acompanantes-nuevo"></div>
-                    <div class="input-group">
-                        <label>Tipo de Butaca</label>
-                        <div class="radio-group">
-                           <div class="radio-option"><input type="radio" id="butaca-semicama" name="butaca-nuevo" value="semicama" checked><label for="butaca-semicama">Semicama (sin costo)</label></div>
-                           <div class="radio-option"><input type="radio" id="butaca-cama" name="butaca-nuevo" value="cama"><label for="butaca-cama">Coche Cama ($20.000 extra)</label></div>
-                        </div>
-                    </div>
-                     <div class="input-group">
-                        <label for="parada-nuevo">Parada Elegida</label>
-                        <select id="parada-nuevo" required>
-                           <option value="">Seleccionar...</option>
-                           <option value="La Plata">LA PLATA - CALLE 120 Y 32</option>
-                           <option value="San Telmo">Bº SAN TELMO - Av. PASEO COLON 835</option>
-                           <option value="Saavedra">Bº SAAVEDRA - Av. CABILDO Y DEHEZA</option>
-                           <option value="Rosario">ROSARIO - Av. SANTA FE Y LAS CASAS</option>
-                        </select>
-                     </div>
-                </fieldset>
-                <fieldset>
-                    <legend>Datos de la Carrera</legend>
-                    <div class="input-group"><label for="running-team">Nombre de tu Running Team (Opcional)</label><input type="text" id="running-team"></div>
-                    <div class="form-row">
-                        <div class="input-group">
-                            <label for="distancia-nuevo">Distancia</label>
-                            <select id="distancia-nuevo" required>
-                                <option value="">Seleccionar...</option>
-                                <option value="42k">42k</option>
-                                <option value="21k">21k</option>
-                                <option value="10k">10k</option>
-                                <option value="Ninguna">Ninguna (Solo Acompañante)</option>
-                            </select>
-                        </div>
-                        <div class="input-group"><label for="talle-nuevo">Talle de Remera</label><select id="talle-nuevo" required><option value="">Seleccionar...</option><option value="XS">XS</option><option value="S">S</option><option value="M">M</option><option value="L">L</option><option value="XL">XL</option><option value="XXL">XXL</option></select></div>
-                        <div class="input-group"><label for="molde-nuevo">Tipo de Molde</label><select id="molde-nuevo" required><option value="">Seleccionar...</option><option value="Dama">Dama</option><option value="Unisex">Unisex</option></select></div>
-                    </div>
-                </fieldset>
-                <fieldset>
-                    <legend>Forma de Pago</legend>
-                    <div class="input-group"><label for="forma-pago-nuevo">Modalidad</label><select id="forma-pago-nuevo" required><option value="">Seleccionar...</option><option value="Unico">Pago Único</option><option value="Cuotas">Reserva + Cuotas</option></select></div>
-                    <div id="datos-pago-nuevo"><p>Por favor, realizá la transferencia a la siguiente cuenta y adjuntá el comprobante.</p><p><strong>CBU:</strong> 0001112223334445556667</p><p><strong>Alias:</strong> TRAVEL.RUNNING.ARG</p><p><strong>Titular:</strong> [Tu Nombre y Apellido]</p></div>
-                    <div class="input-group" style="margin-top:15px;"><label for="comprobante-nuevo">Adjuntar Comprobante de Pago</label><input type="file" id="comprobante-nuevo" required></div>
-                </fieldset>
-                <fieldset>
-                    <legend>Creación de Cuenta</legend>
-                    <div class="input-group"><label for="password-nuevo">Creá tu contraseña para futuras reservas</label><input type="password" id="password-nuevo" minlength="6" required></div>
-                    <div class="input-group"><label for="password-confirm-nuevo">Confirmá tu contraseña</label><input type="password" id="password-confirm-nuevo" minlength="6" required></div>
-                </fieldset>
-                <fieldset>
-                    <legend>Términos y Condiciones</legend>
-                    <p><strong>NO SE REALIZARAN REINTEGROS, DEVOLUCIONES o NOTAS DE CREDITO EN CASO DE INASISTENCIA CUALQUIERA SEA EL MOTIVO.</strong></p>
-                    <p>Esta reserva no incluye costo de inscripción a la carrera.</p>
-                    <div class="terms-group">
-                        <input type="checkbox" id="terminos-nuevo" name="terminos-nuevo" required>
-                        <label for="terminos-nuevo">Leí la propuesta y estoy de acuerdo</label>
-                    </div>
-                </fieldset>
-                <p id="nuevo-usuario-error" class="error-mensaje"></p>
-                <button type="submit">Finalizar Reserva y Crear Cuenta</button>
-                <button type="button" class="btn-volver">Corregir DNI</button>
-            </form>
-        </div>
-        
-        <div id="vista-usuario-existente" style="display:none;">
-            <fieldset id="datos-registrados-container">
-                <legend>Tus Datos Registrados</legend>
-                <p><strong>Nombre y Apellido:</strong> <span id="datos-nombre"></span></p>
-                <p><strong>DNI:</strong> <span id="datos-dni"></span></p>
-                <p><strong>Fecha de Nacimiento:</strong> <span id="datos-fechaNac"></span></p>
-                <p><strong>WhatsApp:</strong> <span id="datos-whatsapp"></span></p>
-                <p><strong>Domicilio:</strong> <span id="datos-domicilio"></span></p>
-            </fieldset>
-            
-            <p style="text-align:center;">A continuación, completá el formulario para confirmar tu reserva.</p>
-            
-            <form id="form-usuario-existente">
-                <fieldset>
-                    <legend>Datos del Viaje</legend>
-                     <div class="input-group"><label for="acompanantes-existente">Persona/s con quien compartís el viaje (Opcional)</label><input type="text" id="acompanantes-existente"></div>
-                    <div class="input-group">
-                        <label>Tipo de Butaca</label>
-                        <div class="radio-group">
-                           <div class="radio-option"><input type="radio" id="butaca-semicama-existente" name="butaca-existente" value="semicama" checked><label for="butaca-semicama-existente">Semicama (sin costo)</label></div>
-                           <div class="radio-option"><input type="radio" id="butaca-cama-existente" name="butaca-existente" value="cama"><label for="butaca-cama-existente">Coche Cama ($20.000 extra)</label></div>
-                        </div>
-                    </div>
-                     <div class="input-group">
-                        <label for="parada-existente">Parada Elegida</label>
-                        <select id="parada-existente" required>
-                           <option value="">Seleccionar...</option>
-                           <option value="La Plata">LA PLATA - CALLE 120 Y 32</option>
-                           <option value="San Telmo">Bº SAN TELMO - Av. PASEO COLON 835</option>
-                           <option value="Saavedra">Bº SAAVEDRA - Av. CABILDO Y DEHEZA</option>
-                           <option value="Rosario">ROSARIO - Av. SANTA FE Y LAS CASAS</option>
-                        </select>
-                     </div>
-                </fieldset>
-                <fieldset>
-                    <legend>Datos de la Carrera</legend>
-                    <div class="input-group"><label for="running-team-existente">Nombre de tu Running Team (Opcional)</label><input type="text" id="running-team-existente"></div>
-                    <div class="form-row">
-                        <div class="input-group">
-                            <label for="distancia-existente">Distancia</label>
-                            <select id="distancia-existente" required>
-                                <option value="">Seleccionar...</option>
-                                <option value="42k">42k</option>
-                                <option value="21k">21k</option>
-                                <option value="10k">10k</option>
-                                <option value="Ninguna">Ninguna (Solo Acompañante)</option>
-                            </select>
-                        </div>
-                        <div class="input-group"><label for="talle-existente">Talle de Remera</label><select id="talle-existente" required><option value="">Seleccionar...</option><option value="XS">XS</option><option value="S">S</option><option value="M">M</option><option value="L">L</option><option value="XL">XL</option><option value="XXL">XXL</option></select></div>
-                        <div class="input-group"><label for="molde-existente">Tipo de Molde</label><select id="molde-existente" required><option value="">Seleccionar...</option><option value="Dama">Dama</option><option value="Unisex">Unisex</option></select></div>
-                    </div>
-                </fieldset>
-                <fieldset>
-                    <legend>Forma de Pago</legend>
-                    <div class="input-group"><label for="forma-pago-existente">Modalidad</label><select id="forma-pago-existente" required><option value="">Seleccionar...</option><option value="Unico">Pago Único</option><option value="Cuotas">Reserva + Cuotas</option></select></div>
-                    <div id="datos-pago-existente"><p>Por favor, realizá la transferencia a la siguiente cuenta y adjuntá el comprobante.</p><p><strong>CBU:</strong> 0001112223334445556667</p><p><strong>Alias:</strong> TRAVEL.RUNNING.ARG</p><p><strong>Titular:</strong> [Tu Nombre y Apellido]</p></div>
-                    <div class="input-group" style="margin-top:15px;"><label for="comprobante-existente">Adjuntar Comprobante de Pago</label><input type="file" id="comprobante-existente" required></div>
-                </fieldset>
-                <fieldset>
-                    <legend>Términos y Condiciones</legend>
-                    <p><strong>NO SE REALIZARAN REINTEGROS, DEVOLUCIONES o NOTAS DE CREDITO EN CASO DE INASISTENCIA CUALQUIERA SEA EL MOTIVO.</strong></p>
-                    <p>Esta reserva no incluye costo de inscripción a la carrera.</p>
-                    <div class="terms-group">
-                        <input type="checkbox" id="terminos-existente" name="terminos-existente" required>
-                        <label for="terminos-existente">Leí la propuesta y estoy de acuerdo</label>
-                    </div>
-                </fieldset>
-                <p id="existente-usuario-error" class="error-mensaje"></p>
-                <button type="submit">Confirmar Reserva</button>
-            </form>
-        </div>
 
-        <div id="mensaje-duplicado" style="display:none;"></div>
-        <div id="form-mensaje-final" style="display:none;"></div>
-    </div>
     <script>
-        /* ======================================== */
-        /* ACÁ VA EL CÓDIGO JAVASCRIPT (PARTE 3)  */
         document.addEventListener('DOMContentLoaded', function () {
             const urlParams = new URLSearchParams(window.location.search);
             const viajeSeleccionado = urlParams.get('viaje');
@@ -915,8 +482,252 @@
             });
 
         });
-
-        /* ======================================== */
     </script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const viajeSeleccionado = urlParams.get('viaje');
+
+        const vistaIdentificacion = document.getElementById('vista-identificacion');
+        const reservaContainer = document.getElementById('reserva-container');
+        
+        if (!viajeSeleccionado) {
+            vistaIdentificacion.style.display = 'none';
+            document.querySelector('h2').style.display = 'none'; 
+
+            const errorViaje = document.createElement('div');
+            errorViaje.className = 'mensaje-advertencia';
+            errorViaje.innerHTML = `<h4>Error: Viaje no especificado</h4>
+                                   <p>Para poder realizar una reserva, tenés que acceder desde un link de viaje concreto.</p>
+                                   <p style="font-size: 0.9em; opacity: 0.8;">Ejemplo de URL correcta: <br>.../reserva.html?viaje=Maraton-de-Mendoza</p>`;
+            reservaContainer.appendChild(errorViaje);
+            return; 
+        }
+
+        let nombreViajeLimpio = viajeSeleccionado.replace(/-/g, ' ');
+        document.getElementById('nombre-viaje').textContent = nombreViajeLimpio;
+        document.getElementById('info-viaje').style.display = 'block';
+        
+        /* MODIFICADO: Base de datos enriquecida con más datos de usuario */
+        const baseDeDatosSimulada = {
+            '25111222': {
+                nombre: 'Raul Perez',
+                email: 'raul.perez@example.com',
+                password: 'password123',
+                fechaNac: '20/10/1985',
+                whatsapp: '+5491133334444',
+                domicilio: {
+                    calle: 'Av. Siempre Viva 742',
+                    ciudad: 'La Plata',
+                    provincia: 'Buenos Aires',
+                    cp: 'B1900'
+                },
+                reservas: [{
+                    viaje: 'Maraton-Internacional-de-Mendoza',
+                    fechaReserva: '15/06/2025'
+                }]
+            },
+            '30333444': {
+                nombre: 'Laura Gomez',
+                email: 'laura.gomez@example.com',
+                password: 'securepassword',
+                fechaNac: '15/05/1990',
+                whatsapp: '+54922155556666',
+                domicilio: {
+                    calle: 'Calle Falsa 123',
+                    ciudad: 'CABA',
+                    provincia: 'CABA',
+                    cp: 'C1043AAZ'
+                },
+                reservas: []
+            },
+            '35999888': {
+                nombre: 'Ana Rodriguez',
+                email: 'ana.rodriguez@example.com',
+                password: 'testpassword',
+                fechaNac: '01/01/1995',
+                whatsapp: '+54934177778888',
+                domicilio: {
+                    calle: 'Bv. Oroño 500',
+                    ciudad: 'Rosario',
+                    provincia: 'Santa Fe',
+                    cp: 'S2000'
+                },
+                reservas: []
+            }
+        };
+
+        const vistaLogin = document.getElementById('vista-login');
+        const vistaNuevoUsuario = document.getElementById('vista-nuevo-usuario');
+        const vistaUsuarioExistente = document.getElementById('vista-usuario-existente');
+        const mensajeDuplicado = document.getElementById('mensaje-duplicado');
+
+        // Elementos para mostrar datos del usuario existente
+        const datosNombre = document.getElementById('datos-nombre');
+        const datosDni = document.getElementById('datos-dni');
+        const datosFechaNac = document.getElementById('datos-fechaNac');
+        const datosWhatsapp = document.getElementById('datos-whatsapp');
+        const datosDomicilio = document.getElementById('datos-domicilio');
+        
+        const formVerificarDni = document.getElementById('form-verificar-dni');
+
+        formVerificarDni.addEventListener('submit', function (event) {
+            event.preventDefault();
+            const dni = document.getElementById('dni-check').value.trim();
+            if (!dni) return;
+
+            const usuario = baseDeDatosSimulada[dni];
+            
+            if (usuario) {
+                const reservaExistente = usuario.reservas.find(reserva => reserva.viaje === viajeSeleccionado);
+                if (reservaExistente) {
+                    vistaIdentificacion.style.display = 'none';
+                    mensajeDuplicado.className = 'mensaje-advertencia';
+                    mensajeDuplicado.innerHTML = `
+                        <h4>Atención</h4>
+                        <p>Tu reserva para <strong>${nombreViajeLimpio}</strong> ya se realizó el día ${reservaExistente.fechaReserva}.</p>
+                        <p>Para verificar el estado de tu reserva y/o abonar cuotas, tocá IR A MI CUENTA.</p>
+                        <button onclick="alert('Redirigiendo a Mi Cuenta...');">Ir a mi Cuenta</button>`;
+                    return;
+                }
+            }
+            
+            vistaIdentificacion.style.display = 'none';
+            if (usuario) {
+                document.getElementById('dni-login').textContent = dni;
+                vistaLogin.style.display = 'block';
+            } else {
+                document.getElementById('dni-nuevo').textContent = dni;
+                vistaNuevoUsuario.style.display = 'block';
+            }
+        });
+
+        const formLogin = document.getElementById('form-login');
+        const mensajeFinal = document.getElementById('form-mensaje-final');
+        const loginError = document.getElementById('login-error');
+        
+        /* MODIFICADO: La lógica de login ahora puebla los datos del usuario */
+        formLogin.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const dni = document.getElementById('dni-login').textContent;
+            const passwordIngresada = document.getElementById('password-login').value;
+            const usuario = baseDeDatosSimulada[dni];
+
+            if (usuario && usuario.password === passwordIngresada) {
+                vistaLogin.style.display = 'none';
+                loginError.style.display = 'none';
+                
+                // Poblar los campos con los datos del usuario
+                datosNombre.textContent = usuario.nombre;
+                datosDni.textContent = dni;
+                datosFechaNac.textContent = usuario.fechaNac;
+                datosWhatsapp.textContent = usuario.whatsapp;
+                datosDomicilio.textContent = `${usuario.domicilio.calle}, ${usuario.domicilio.ciudad}, ${usuario.domicilio.provincia}.`;
+                
+                vistaUsuarioExistente.style.display = 'block';
+
+            } else {
+                loginError.textContent = 'Contraseña incorrecta. Por favor, intentá de nuevo.';
+                loginError.style.display = 'block';
+            }
+        });
+        
+        const formUsuarioExistente = document.getElementById('form-usuario-existente');
+        const existenteUsuarioError = document.getElementById('existente-usuario-error');
+        
+        formUsuarioExistente.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!document.getElementById('terminos-existente').checked) {
+                existenteUsuarioError.textContent = 'Debes aceptar los términos y condiciones para continuar.';
+                existenteUsuarioError.style.display = 'block';
+                return;
+            }
+            
+            existenteUsuarioError.style.display = 'none';
+            vistaUsuarioExistente.style.display = 'none';
+            document.getElementById('info-viaje').style.display = 'none';
+            mensajeFinal.textContent = `¡Reserva confirmada para ${nombreViajeLimpio}! Gracias por volver a elegirnos.`;
+            mensajeFinal.className = 'mensaje-exito';
+        });
+
+
+        const formNuevoUsuario = document.getElementById('form-nuevo-usuario');
+        const nuevoUsuarioError = document.getElementById('nuevo-usuario-error');
+        
+        formNuevoUsuario.addEventListener('submit', function (e) {
+            e.preventDefault();
+            
+            const pass = document.getElementById('password-nuevo').value;
+            const confirmPass = document.getElementById('password-confirm-nuevo').value;
+
+            if (pass !== confirmPass) {
+                nuevoUsuarioError.textContent = 'Las contraseñas no coinciden. Por favor, verificá.';
+                nuevoUsuarioError.style.display = 'block';
+                return;
+            }
+            
+            if (!document.getElementById('terminos-nuevo').checked) {
+                nuevoUsuarioError.textContent = 'Debes aceptar los términos y condiciones para continuar.';
+                nuevoUsuarioError.style.display = 'block';
+                return;
+            }
+            
+            nuevoUsuarioError.style.display = 'none';
+            vistaNuevoUsuario.style.display = 'none';
+            document.getElementById('info-viaje').style.display = 'none';
+            mensajeFinal.textContent = `¡Felicitaciones! Tu cuenta fue creada y tu reserva para ${nombreViajeLimpio} fue confirmada. Recibirás un email con los detalles.`;
+            mensajeFinal.className = 'mensaje-exito';
+        });
+        
+        const botonesVolver = document.querySelectorAll('.btn-volver');
+        botonesVolver.forEach(function(boton) {
+            boton.addEventListener('click', function() {
+                vistaLogin.style.display = 'none';
+                vistaNuevoUsuario.style.display = 'none';
+                
+                document.getElementById('form-login').reset();
+                document.getElementById('form-nuevo-usuario').reset();
+                loginError.style.display = 'none';
+                nuevoUsuarioError.style.display = 'none';
+                
+                vistaIdentificacion.style.display = 'block';
+                document.getElementById('dni-check').value = '';
+                document.getElementById('dni-check').focus();
+            });
+        });
+
+        const selectDistanciaNuevo = document.getElementById('distancia-nuevo');
+        const selectTalleNuevo = document.getElementById('talle-nuevo');
+        const selectMoldeNuevo = document.getElementById('molde-nuevo');
+
+        selectDistanciaNuevo.addEventListener('change', function() {
+            const esAcompanante = this.value === 'Ninguna';
+            selectTalleNuevo.required = !esAcompanante;
+            selectTalleNuevo.disabled = esAcompanante;
+            selectMoldeNuevo.required = !esAcompanante;
+            selectMoldeNuevo.disabled = esAcompanante;
+            if (esAcompanante) {
+                selectTalleNuevo.value = '';
+                selectMoldeNuevo.value = '';
+            }
+        });
+        
+        const selectDistanciaExistente = document.getElementById('distancia-existente');
+        const selectTalleExistente = document.getElementById('talle-existente');
+        const selectMoldeExistente = document.getElementById('molde-existente');
+
+        selectDistanciaExistente.addEventListener('change', function() {
+            const esAcompanante = this.value === 'Ninguna';
+            selectTalleExistente.required = !esAcompanante;
+            selectTalleExistente.disabled = esAcompanante;
+            selectMoldeExistente.required = !esAcompanante;
+            selectMoldeExistente.disabled = esAcompanante;
+            if (esAcompanante) {
+                selectTalleExistente.value = '';
+                selectMoldeExistente.value = '';
+            }
+        });
+
+    });
 </body>
 </html>
