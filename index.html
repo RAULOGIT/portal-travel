@@ -121,6 +121,12 @@
             box-sizing: border-box;
             font-size: 1em;
         }
+        
+        input:disabled, select:disabled {
+            background-color: #e9ecef;
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
 
         button {
             width: 100%;
@@ -248,13 +254,13 @@
                     <input type="password" id="password-login" required>
                 </div>
                 <p id="login-error" class="error-mensaje"></p>
-                <button type="submit">Ingresar y Reservar</button>
+                <button type="submit">Ingresar y Continuar</button>
                 <button type="button" class="btn-volver">Corregir DNI</button>
             </form>
         </div>
         <div id="vista-nuevo-usuario" style="display:none;">
             <h4>¡Bienvenido/a! Estás a un paso.</h4>
-            <p style="text-align:center;">Tu DNI es <span id="dni-nuevo" class="display-id"></span>. <b>Completá el formulario de reserva</b> para crear tu cuenta.</p>
+            <p style="text-align:center;">Tu DNI es <span id="dni-nuevo" class="display-id"></span>. <b>Completá el formulario de reserva</b>.</p>
             <form id="form-nuevo-usuario" novalidate>
                 <fieldset>
                     <legend>Datos Personales</legend>
@@ -263,7 +269,7 @@
                     <div class="form-row">
                         <div class="input-group">
                             <label for="nacimiento-nuevo">Fecha de Nacimiento</label>
-                            <input type="text" id="nacimiento-nuevo" placeholder="AAAA-MM-DD" pattern="\d{4}-\d{2}-\d{2}" required>
+                            <input type="text" id="nacimiento-nuevo" placeholder="DD/MM/AAAA" pattern="\d{2}/\d{2}/\d{4}" required>
                         </div>
                         <div class="input-group"><label for="telefono-nuevo">Teléfono / WhatsApp</label><input type="tel" id="telefono-nuevo" required></div>
                     </div>
@@ -293,8 +299,8 @@
                     <div class="input-group">
                         <label>Tipo de Butaca</label>
                         <div class="radio-group">
-                           <div class="radio-option"><input type="radio" id="butaca-semicama" name="butaca" value="semicama" checked><label for="butaca-semicama">Semicama (sin costo)</label></div>
-                           <div class="radio-option"><input type="radio" id="butaca-cama" name="butaca" value="cama"><label for="butaca-cama">Coche Cama ($20.000 extra)</label></div>
+                           <div class="radio-option"><input type="radio" id="butaca-semicama" name="butaca-nuevo" value="semicama" checked><label for="butaca-semicama">Semicama (sin costo)</label></div>
+                           <div class="radio-option"><input type="radio" id="butaca-cama" name="butaca-nuevo" value="cama"><label for="butaca-cama">Coche Cama ($20.000 extra)</label></div>
                         </div>
                     </div>
                      <div class="input-group">
@@ -312,38 +318,109 @@
                     <legend>Datos de la Carrera</legend>
                     <div class="input-group"><label for="running-team">Nombre de tu Running Team (Opcional)</label><input type="text" id="running-team"></div>
                     <div class="form-row">
-                        <div class="input-group"><label for="distancia-nuevo">Distancia</label><select id="distancia-nuevo" required><option value="">Seleccionar...</option><option value="42k">42k</option><option value="21k">21k</option><option value="10k">10k</option></select></div>
+                        <div class="input-group">
+                            <label for="distancia-nuevo">Distancia</label>
+                            <select id="distancia-nuevo" required>
+                                <option value="">Seleccionar...</option>
+                                <option value="42k">42k</option>
+                                <option value="21k">21k</option>
+                                <option value="10k">10k</option>
+                                <option value="Ninguna">Ninguna (Solo Acompañante)</option>
+                            </select>
+                        </div>
                         <div class="input-group"><label for="talle-nuevo">Talle de Remera</label><select id="talle-nuevo" required><option value="">Seleccionar...</option><option value="XS">XS</option><option value="S">S</option><option value="M">M</option><option value="L">L</option><option value="XL">XL</option><option value="XXL">XXL</option></select></div>
                         <div class="input-group"><label for="molde-nuevo">Tipo de Molde</label><select id="molde-nuevo" required><option value="">Seleccionar...</option><option value="Dama">Dama</option><option value="Unisex">Unisex</option></select></div>
                     </div>
                 </fieldset>
                 <fieldset>
                     <legend>Forma de Pago</legend>
-                    <div class="input-group"><label for="forma-pago">Modalidad</label><select id="forma-pago" required><option value="">Seleccionar...</option><option value="Unico">Pago Único</option><option value="Cuotas">Reserva + Cuotas</option></select></div>
-                    <div id="datos-pago"><p>Por favor, realizá la transferencia a la siguiente cuenta y adjuntá el comprobante.</p><p><strong>CBU:</strong> 0001112223334445556667</p><p><strong>Alias:</strong> TRAVEL.RUNNING.ARG</p><p><strong>Titular:</strong> [Tu Nombre y Apellido]</p></div>
-                    <div class="input-group" style="margin-top:15px;"><label for="comprobante">Adjuntar Comprobante de Pago</label><input type="file" id="comprobante" required></div>
+                    <div class="input-group"><label for="forma-pago-nuevo">Modalidad</label><select id="forma-pago-nuevo" required><option value="">Seleccionar...</option><option value="Unico">Pago Único</option><option value="Cuotas">Reserva + Cuotas</option></select></div>
+                    <div id="datos-pago-nuevo"><p>Por favor, realizá la transferencia a la siguiente cuenta y adjuntá el comprobante.</p><p><strong>CBU:</strong> 0001112223334445556667</p><p><strong>Alias:</strong> TRAVEL.RUNNING.ARG</p><p><strong>Titular:</strong> [Tu Nombre y Apellido]</p></div>
+                    <div class="input-group" style="margin-top:15px;"><label for="comprobante-nuevo">Adjuntar Comprobante de Pago</label><input type="file" id="comprobante-nuevo" required></div>
                 </fieldset>
                 <fieldset>
                     <legend>Creación de Cuenta</legend>
                     <div class="input-group"><label for="password-nuevo">Creá tu contraseña para futuras reservas</label><input type="password" id="password-nuevo" minlength="6" required></div>
                     <div class="input-group"><label for="password-confirm-nuevo">Confirmá tu contraseña</label><input type="password" id="password-confirm-nuevo" minlength="6" required></div>
                 </fieldset>
-                
                 <fieldset>
                     <legend>Términos y Condiciones</legend>
                     <p><strong>NO SE REALIZARAN REINTEGROS, DEVOLUCIONES o NOTAS DE CREDITO EN CASO DE INASISTENCIA CUALQUIERA SEA EL MOTIVO.</strong></p>
                     <p>Esta reserva no incluye costo de inscripción a la carrera.</p>
                     <div class="terms-group">
-                        <input type="checkbox" id="terminos-nuevo" name="terminos" required>
+                        <input type="checkbox" id="terminos-nuevo" name="terminos-nuevo" required>
                         <label for="terminos-nuevo">Leí la propuesta y estoy de acuerdo</label>
                     </div>
                 </fieldset>
-
                 <p id="nuevo-usuario-error" class="error-mensaje"></p>
                 <button type="submit">Finalizar Reserva y Crear Cuenta</button>
                 <button type="button" class="btn-volver">Corregir DNI</button>
             </form>
         </div>
+        
+        <div id="vista-usuario-existente" style="display:none;">
+            <h4>¡Hola de nuevo, <span id="nombre-bienvenida" class="display-id"></span>!</h4>
+            <p style="text-align:center;">Ya tenemos tus datos personales. Solo necesitamos que completes lo siguiente para finalizar tu reserva.</p>
+            <form id="form-usuario-existente">
+                <fieldset>
+                    <legend>Datos del Viaje</legend>
+                     <div class="input-group"><label for="acompanantes-existente">Persona/s con quien compartís el viaje (Opcional)</label><input type="text" id="acompanantes-existente"></div>
+                    <div class="input-group">
+                        <label>Tipo de Butaca</label>
+                        <div class="radio-group">
+                           <div class="radio-option"><input type="radio" id="butaca-semicama-existente" name="butaca-existente" value="semicama" checked><label for="butaca-semicama-existente">Semicama (sin costo)</label></div>
+                           <div class="radio-option"><input type="radio" id="butaca-cama-existente" name="butaca-existente" value="cama"><label for="butaca-cama-existente">Coche Cama ($20.000 extra)</label></div>
+                        </div>
+                    </div>
+                     <div class="input-group">
+                        <label for="parada-existente">Parada Elegida</label>
+                        <select id="parada-existente" required>
+                           <option value="">Seleccionar...</option>
+                           <option value="La Plata">LA PLATA - CALLE 120 Y 32</option>
+                           <option value="San Telmo">Bº SAN TELMO - Av. PASEO COLON 835</option>
+                           <option value="Saavedra">Bº SAAVEDRA - Av. CABILDO Y DEHEZA</option>
+                           <option value="Rosario">ROSARIO - Av. SANTA FE Y LAS CASAS</option>
+                        </select>
+                     </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Datos de la Carrera</legend>
+                    <div class="input-group"><label for="running-team-existente">Nombre de tu Running Team (Opcional)</label><input type="text" id="running-team-existente"></div>
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label for="distancia-existente">Distancia</label>
+                            <select id="distancia-existente" required>
+                                <option value="">Seleccionar...</option>
+                                <option value="42k">42k</option>
+                                <option value="21k">21k</option>
+                                <option value="10k">10k</option>
+                                <option value="Ninguna">Ninguna (Solo Acompañante)</option>
+                            </select>
+                        </div>
+                        <div class="input-group"><label for="talle-existente">Talle de Remera</label><select id="talle-existente" required><option value="">Seleccionar...</option><option value="XS">XS</option><option value="S">S</option><option value="M">M</option><option value="L">L</option><option value="XL">XL</option><option value="XXL">XXL</option></select></div>
+                        <div class="input-group"><label for="molde-existente">Tipo de Molde</label><select id="molde-existente" required><option value="">Seleccionar...</option><option value="Dama">Dama</option><option value="Unisex">Unisex</option></select></div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Forma de Pago</legend>
+                    <div class="input-group"><label for="forma-pago-existente">Modalidad</label><select id="forma-pago-existente" required><option value="">Seleccionar...</option><option value="Unico">Pago Único</option><option value="Cuotas">Reserva + Cuotas</option></select></div>
+                    <div id="datos-pago-existente"><p>Por favor, realizá la transferencia a la siguiente cuenta y adjuntá el comprobante.</p><p><strong>CBU:</strong> 0001112223334445556667</p><p><strong>Alias:</strong> TRAVEL.RUNNING.ARG</p><p><strong>Titular:</strong> [Tu Nombre y Apellido]</p></div>
+                    <div class="input-group" style="margin-top:15px;"><label for="comprobante-existente">Adjuntar Comprobante de Pago</label><input type="file" id="comprobante-existente" required></div>
+                </fieldset>
+                <fieldset>
+                    <legend>Términos y Condiciones</legend>
+                    <p><strong>NO SE REALIZARAN REINTEGROS, DEVOLUCIONES o NOTAS DE CREDITO EN CASO DE INASISTENCIA CUALQUIERA SEA EL MOTIVO.</strong></p>
+                    <p>Esta reserva no incluye costo de inscripción a la carrera.</p>
+                    <div class="terms-group">
+                        <input type="checkbox" id="terminos-existente" name="terminos-existente" required>
+                        <label for="terminos-existente">Leí la propuesta y estoy de acuerdo</label>
+                    </div>
+                </fieldset>
+                <p id="existente-usuario-error" class="error-mensaje"></p>
+                <button type="submit">Confirmar Reserva</button>
+            </form>
+        </div>
+
         <div id="mensaje-duplicado" style="display:none;"></div>
         <div id="form-mensaje-final" style="display:none;"></div>
     </div>
@@ -352,33 +429,26 @@
             const urlParams = new URLSearchParams(window.location.search);
             const viajeSeleccionado = urlParams.get('viaje');
 
-            // --- INICIO DE LA CORRECCIÓN ---
             const vistaIdentificacion = document.getElementById('vista-identificacion');
             const reservaContainer = document.getElementById('reserva-container');
             
-            // Si no hay un viaje seleccionado en la URL, mostramos un error y detenemos todo.
             if (!viajeSeleccionado) {
-                // Ocultamos las vistas que no correspondan
                 vistaIdentificacion.style.display = 'none';
-                document.querySelector('h2').style.display = 'none'; // Opcional: ocultar título principal
+                document.querySelector('h2').style.display = 'none'; 
 
-                // Creamos y mostramos el mensaje de error
                 const errorViaje = document.createElement('div');
-                errorViaje.className = 'mensaje-advertencia'; // Reutilizamos el estilo de advertencia
+                errorViaje.className = 'mensaje-advertencia';
                 errorViaje.innerHTML = `<h4>Error: Viaje no especificado</h4>
                                        <p>Para poder realizar una reserva, tenés que acceder desde un link de viaje concreto.</p>
                                        <p style="font-size: 0.9em; opacity: 0.8;">Ejemplo de URL correcta: <br>.../reserva.html?viaje=Maraton-de-Mendoza</p>`;
                 reservaContainer.appendChild(errorViaje);
-                return; // Detenemos la ejecución del script aquí.
+                return; 
             }
-            // --- FIN DE LA CORRECCIÓN ---
-
 
             let nombreViajeLimpio = viajeSeleccionado.replace(/-/g, ' ');
             document.getElementById('nombre-viaje').textContent = nombreViajeLimpio;
             document.getElementById('info-viaje').style.display = 'block';
             
-
             const baseDeDatosSimulada = {
                 '25111222': {
                     nombre: 'Raul Perez',
@@ -399,6 +469,7 @@
 
             const vistaLogin = document.getElementById('vista-login');
             const vistaNuevoUsuario = document.getElementById('vista-nuevo-usuario');
+            const vistaUsuarioExistente = document.getElementById('vista-usuario-existente'); // NUEVO
             const mensajeDuplicado = document.getElementById('mensaje-duplicado');
             
             const formVerificarDni = document.getElementById('form-verificar-dni');
@@ -435,11 +506,10 @@
             });
 
             const formLogin = document.getElementById('form-login');
-            const formNuevoUsuario = document.getElementById('form-nuevo-usuario');
             const mensajeFinal = document.getElementById('form-mensaje-final');
             const loginError = document.getElementById('login-error');
-            const nuevoUsuarioError = document.getElementById('nuevo-usuario-error');
             
+            /* MODIFICADO: Lógica del formulario de login */
             formLogin.addEventListener('submit', function (e) {
                 e.preventDefault();
                 const dni = document.getElementById('dni-login').textContent;
@@ -447,17 +517,43 @@
                 const usuario = baseDeDatosSimulada[dni];
 
                 if (usuario && usuario.password === passwordIngresada) {
+                    // Oculta el login y muestra el formulario de reserva para usuario existente
                     vistaLogin.style.display = 'none';
-                    document.getElementById('info-viaje').style.display = 'none';
-                    mensajeFinal.textContent = `¡Reserva confirmada para ${nombreViajeLimpio}! Gracias por volver a elegirnos.`;
-                    mensajeFinal.className = 'mensaje-exito';
                     loginError.style.display = 'none';
+                    
+                    document.getElementById('nombre-bienvenida').textContent = usuario.nombre;
+                    vistaUsuarioExistente.style.display = 'block';
+
                 } else {
                     loginError.textContent = 'Contraseña incorrecta. Por favor, intentá de nuevo.';
                     loginError.style.display = 'block';
                 }
             });
+            
+            /* NUEVO: Lógica para el formulario de reserva del usuario existente */
+            const formUsuarioExistente = document.getElementById('form-usuario-existente');
+            const existenteUsuarioError = document.getElementById('existente-usuario-error');
+            
+            formUsuarioExistente.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if (!document.getElementById('terminos-existente').checked) {
+                    existenteUsuarioError.textContent = 'Debes aceptar los términos y condiciones para continuar.';
+                    existenteUsuarioError.style.display = 'block';
+                    return;
+                }
+                
+                existenteUsuarioError.style.display = 'none';
+                vistaUsuarioExistente.style.display = 'none';
+                document.getElementById('info-viaje').style.display = 'none';
+                mensajeFinal.textContent = `¡Reserva confirmada para ${nombreViajeLimpio}! Gracias por volver a elegirnos.`;
+                mensajeFinal.className = 'mensaje-exito';
+            });
 
+
+            const formNuevoUsuario = document.getElementById('form-nuevo-usuario');
+            const nuevoUsuarioError = document.getElementById('nuevo-usuario-error');
+            
             formNuevoUsuario.addEventListener('submit', function (e) {
                 e.preventDefault();
                 
@@ -498,6 +594,40 @@
                     document.getElementById('dni-check').value = '';
                     document.getElementById('dni-check').focus();
                 });
+            });
+
+            // Lógica para desactivar campos de remera (Formulario NUEVO usuario)
+            const selectDistanciaNuevo = document.getElementById('distancia-nuevo');
+            const selectTalleNuevo = document.getElementById('talle-nuevo');
+            const selectMoldeNuevo = document.getElementById('molde-nuevo');
+
+            selectDistanciaNuevo.addEventListener('change', function() {
+                const esAcompanante = this.value === 'Ninguna';
+                selectTalleNuevo.required = !esAcompanante;
+                selectTalleNuevo.disabled = esAcompanante;
+                selectMoldeNuevo.required = !esAcompanante;
+                selectMoldeNuevo.disabled = esAcompanante;
+                if (esAcompanante) {
+                    selectTalleNuevo.value = '';
+                    selectMoldeNuevo.value = '';
+                }
+            });
+            
+            /* NUEVO: Lógica para desactivar campos de remera (Formulario USUARIO EXISTENTE) */
+            const selectDistanciaExistente = document.getElementById('distancia-existente');
+            const selectTalleExistente = document.getElementById('talle-existente');
+            const selectMoldeExistente = document.getElementById('molde-existente');
+
+            selectDistanciaExistente.addEventListener('change', function() {
+                const esAcompanante = this.value === 'Ninguna';
+                selectTalleExistente.required = !esAcompanante;
+                selectTalleExistente.disabled = esAcompanante;
+                selectMoldeExistente.required = !esAcompanante;
+                selectMoldeExistente.disabled = esAcompanante;
+                if (esAcompanante) {
+                    selectTalleExistente.value = '';
+                    selectMoldeExistente.value = '';
+                }
             });
 
         });
