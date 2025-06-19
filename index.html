@@ -351,13 +351,33 @@
         document.addEventListener('DOMContentLoaded', function () {
             const urlParams = new URLSearchParams(window.location.search);
             const viajeSeleccionado = urlParams.get('viaje');
-            let nombreViajeLimpio = "este viaje";
 
-            if (viajeSeleccionado) {
-                nombreViajeLimpio = viajeSeleccionado.replace(/-/g, ' ');
-                document.getElementById('nombre-viaje').textContent = nombreViajeLimpio;
-                document.getElementById('info-viaje').style.display = 'block';
+            // --- INICIO DE LA CORRECCIÓN ---
+            const vistaIdentificacion = document.getElementById('vista-identificacion');
+            const reservaContainer = document.getElementById('reserva-container');
+            
+            // Si no hay un viaje seleccionado en la URL, mostramos un error y detenemos todo.
+            if (!viajeSeleccionado) {
+                // Ocultamos las vistas que no correspondan
+                vistaIdentificacion.style.display = 'none';
+                document.querySelector('h2').style.display = 'none'; // Opcional: ocultar título principal
+
+                // Creamos y mostramos el mensaje de error
+                const errorViaje = document.createElement('div');
+                errorViaje.className = 'mensaje-advertencia'; // Reutilizamos el estilo de advertencia
+                errorViaje.innerHTML = `<h4>Error: Viaje no especificado</h4>
+                                       <p>Para poder realizar una reserva, tenés que acceder desde un link de viaje concreto.</p>
+                                       <p style="font-size: 0.9em; opacity: 0.8;">Ejemplo de URL correcta: <br>.../reserva.html?viaje=Maraton-de-Mendoza</p>`;
+                reservaContainer.appendChild(errorViaje);
+                return; // Detenemos la ejecución del script aquí.
             }
+            // --- FIN DE LA CORRECCIÓN ---
+
+
+            let nombreViajeLimpio = viajeSeleccionado.replace(/-/g, ' ');
+            document.getElementById('nombre-viaje').textContent = nombreViajeLimpio;
+            document.getElementById('info-viaje').style.display = 'block';
+            
 
             const baseDeDatosSimulada = {
                 '25111222': {
@@ -377,7 +397,6 @@
                 }
             };
 
-            const vistaIdentificacion = document.getElementById('vista-identificacion');
             const vistaLogin = document.getElementById('vista-login');
             const vistaNuevoUsuario = document.getElementById('vista-nuevo-usuario');
             const mensajeDuplicado = document.getElementById('mensaje-duplicado');
@@ -412,3 +431,76 @@
                 } else {
                     document.getElementById('dni-nuevo').textContent = dni;
                     vistaNuevoUsuario.style.display = 'block';
+                }
+            });
+
+            const formLogin = document.getElementById('form-login');
+            const formNuevoUsuario = document.getElementById('form-nuevo-usuario');
+            const mensajeFinal = document.getElementById('form-mensaje-final');
+            const loginError = document.getElementById('login-error');
+            const nuevoUsuarioError = document.getElementById('nuevo-usuario-error');
+            
+            formLogin.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const dni = document.getElementById('dni-login').textContent;
+                const passwordIngresada = document.getElementById('password-login').value;
+                const usuario = baseDeDatosSimulada[dni];
+
+                if (usuario && usuario.password === passwordIngresada) {
+                    vistaLogin.style.display = 'none';
+                    document.getElementById('info-viaje').style.display = 'none';
+                    mensajeFinal.textContent = `¡Reserva confirmada para ${nombreViajeLimpio}! Gracias por volver a elegirnos.`;
+                    mensajeFinal.className = 'mensaje-exito';
+                    loginError.style.display = 'none';
+                } else {
+                    loginError.textContent = 'Contraseña incorrecta. Por favor, intentá de nuevo.';
+                    loginError.style.display = 'block';
+                }
+            });
+
+            formNuevoUsuario.addEventListener('submit', function (e) {
+                e.preventDefault();
+                
+                const pass = document.getElementById('password-nuevo').value;
+                const confirmPass = document.getElementById('password-confirm-nuevo').value;
+
+                if (pass !== confirmPass) {
+                    nuevoUsuarioError.textContent = 'Las contraseñas no coinciden. Por favor, verificá.';
+                    nuevoUsuarioError.style.display = 'block';
+                    return;
+                }
+                
+                if (!document.getElementById('terminos-nuevo').checked) {
+                    nuevoUsuarioError.textContent = 'Debes aceptar los términos y condiciones para continuar.';
+                    nuevoUsuarioError.style.display = 'block';
+                    return;
+                }
+                
+                nuevoUsuarioError.style.display = 'none';
+                vistaNuevoUsuario.style.display = 'none';
+                document.getElementById('info-viaje').style.display = 'none';
+                mensajeFinal.textContent = `¡Felicitaciones! Tu cuenta fue creada y tu reserva para ${nombreViajeLimpio} fue confirmada. Recibirás un email con los detalles.`;
+                mensajeFinal.className = 'mensaje-exito';
+            });
+            
+            const botonesVolver = document.querySelectorAll('.btn-volver');
+            botonesVolver.forEach(function(boton) {
+                boton.addEventListener('click', function() {
+                    vistaLogin.style.display = 'none';
+                    vistaNuevoUsuario.style.display = 'none';
+                    
+                    document.getElementById('form-login').reset();
+                    document.getElementById('form-nuevo-usuario').reset();
+                    loginError.style.display = 'none';
+                    nuevoUsuarioError.style.display = 'none';
+                    
+                    vistaIdentificacion.style.display = 'block';
+                    document.getElementById('dni-check').value = '';
+                    document.getElementById('dni-check').focus();
+                });
+            });
+
+        });
+    </script>
+</body>
+</html>
