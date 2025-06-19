@@ -76,6 +76,22 @@
         .input-group {
             margin-bottom: 15px;
         }
+        
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .radio-group label {
+            font-weight: normal;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
 
         .form-row {
             display: flex;
@@ -123,6 +139,17 @@
         button:hover {
             background-color: #218838;
         }
+        
+        .btn-volver {
+            background-color: #6c757d;
+            font-size: 16px;
+            margin-top: 15px;
+        }
+
+        .btn-volver:hover {
+            background-color: #5a6268;
+        }
+
 
         .display-id {
             font-weight: bold;
@@ -133,9 +160,14 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .terms-group label {
+            font-weight: normal;
         }
 
-        input[type="checkbox"] {
+        input[type="checkbox"], input[type="radio"] {
             width: auto;
         }
 
@@ -177,6 +209,17 @@
             margin-top: 15px;
             background-color: #007bff;
         }
+        
+        .error-mensaje {
+            color: #721c24;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            text-align: center;
+            display: none;
+        }
     </style>
 </head>
 
@@ -204,7 +247,9 @@
                     <label for="password-login">Contraseña</label>
                     <input type="password" id="password-login" required>
                 </div>
+                <p id="login-error" class="error-mensaje"></p>
                 <button type="submit">Ingresar y Reservar</button>
+                <button type="button" class="btn-volver">Corregir DNI</button>
             </form>
         </div>
         <div id="vista-nuevo-usuario" style="display:none;">
@@ -216,21 +261,52 @@
                     <div class="input-group"><label for="nombre-nuevo">Nombre y Apellido</label><input type="text" id="nombre-nuevo" required></div>
                     <div class="input-group"><label for="email-nuevo">Email (para enviarte la confirmación)</label><input type="email" id="email-nuevo" required></div>
                     <div class="form-row">
-                        <div class="input-group"><label for="nacimiento-nuevo">Fecha de Nacimiento</label><input type="date" id="nacimiento-nuevo" required></div>
+                        <div class="input-group">
+                            <label for="nacimiento-nuevo">Fecha de Nacimiento</label>
+                            <input type="text" id="nacimiento-nuevo" placeholder="AAAA-MM-DD" pattern="\d{4}-\d{2}-\d{2}" required>
+                        </div>
                         <div class="input-group"><label for="telefono-nuevo">Teléfono / WhatsApp</label><input type="tel" id="telefono-nuevo" required></div>
+                    </div>
+                    <div class="input-group">
+                        <label>¿Sos celíaca/o?</label>
+                        <div class="radio-group">
+                           <div class="radio-option"><input type="radio" id="celiaco-si" name="celiaco" value="si" required><label for="celiaco-si">Sí</label></div>
+                           <div class="radio-option"><input type="radio" id="celiaco-no" name="celiaco" value="no" checked><label for="celiaco-no">No</label></div>
+                        </div>
                     </div>
                 </fieldset>
                 <fieldset>
                     <legend>Domicilio</legend>
-                    <div class="input-group"><label for="calle-nuevo">Calle</label><input type="text" id="calle-nuevo" required></div>
                     <div class="form-row">
-                        <div class="input-group" style="flex: 3;"><label for="ciudad-nuevo">Ciudad</label><input type="text" id="ciudad-nuevo" required></div>
+                        <div class="input-group" style="flex: 3;"><label for="calle-nuevo">Calle</label><input type="text" id="calle-nuevo" required></div>
                         <div class="input-group" style="flex: 1;"><label for="numero-nuevo">Número</label><input type="text" id="numero-nuevo" required></div>
                     </div>
                     <div class="form-row">
-                        <div class="input-group"><label for="provincia-nuevo">Provincia</label><input type="text" id="provincia-nuevo" required></div>
-                        <div class="input-group"><label for="cp-nuevo">Código Postal</label><input type="text" id="cp-nuevo" required></div>
+                        <div class="input-group" style="flex: 2;"><label for="ciudad-nuevo">Ciudad</label><input type="text" id="ciudad-nuevo" required></div>
+                        <div class="input-group" style="flex: 1;"><label for="cp-nuevo">Código Postal</label><input type="text" id="cp-nuevo" required></div>
                     </div>
+                     <div class="input-group"><label for="provincia-nuevo">Provincia</label><input type="text" id="provincia-nuevo" required></div>
+                </fieldset>
+                <fieldset>
+                    <legend>Datos del Viaje</legend>
+                     <div class="input-group"><label for="acompanantes-nuevo">Persona/s con quien compartís el viaje (Opcional)</label><input type="text" id="acompanantes-nuevo"></div>
+                    <div class="input-group">
+                        <label>Tipo de Butaca</label>
+                        <div class="radio-group">
+                           <div class="radio-option"><input type="radio" id="butaca-semicama" name="butaca" value="semicama" checked><label for="butaca-semicama">Semicama (sin costo)</label></div>
+                           <div class="radio-option"><input type="radio" id="butaca-cama" name="butaca" value="cama"><label for="butaca-cama">Coche Cama ($20.000 extra)</label></div>
+                        </div>
+                    </div>
+                     <div class="input-group">
+                        <label for="parada-nuevo">Parada Elegida</label>
+                        <select id="parada-nuevo" required>
+                           <option value="">Seleccionar...</option>
+                           <option value="La Plata">LA PLATA - CALLE 120 Y 32</option>
+                           <option value="San Telmo">Bº SAN TELMO - Av. PASEO COLON 835</option>
+                           <option value="Saavedra">Bº SAAVEDRA - Av. CABILDO Y DEHEZA</option>
+                           <option value="Rosario">ROSARIO - Av. SANTA FE Y LAS CASAS</option>
+                        </select>
+                     </div>
                 </fieldset>
                 <fieldset>
                     <legend>Datos de la Carrera</legend>
@@ -250,8 +326,22 @@
                 <fieldset>
                     <legend>Creación de Cuenta</legend>
                     <div class="input-group"><label for="password-nuevo">Creá tu contraseña para futuras reservas</label><input type="password" id="password-nuevo" minlength="6" required></div>
+                    <div class="input-group"><label for="password-confirm-nuevo">Confirmá tu contraseña</label><input type="password" id="password-confirm-nuevo" minlength="6" required></div>
                 </fieldset>
+                
+                <fieldset>
+                    <legend>Términos y Condiciones</legend>
+                    <p><strong>NO SE REALIZARAN REINTEGROS, DEVOLUCIONES o NOTAS DE CREDITO EN CASO DE INASISTENCIA CUALQUIERA SEA EL MOTIVO.</strong></p>
+                    <p>Esta reserva no incluye costo de inscripción a la carrera.</p>
+                    <div class="terms-group">
+                        <input type="checkbox" id="terminos-nuevo" name="terminos" required>
+                        <label for="terminos-nuevo">Leí la propuesta y estoy de acuerdo</label>
+                    </div>
+                </fieldset>
+
+                <p id="nuevo-usuario-error" class="error-mensaje"></p>
                 <button type="submit">Finalizar Reserva y Crear Cuenta</button>
+                <button type="button" class="btn-volver">Corregir DNI</button>
             </form>
         </div>
         <div id="mensaje-duplicado" style="display:none;"></div>
@@ -273,6 +363,7 @@
                 '25111222': {
                     nombre: 'Raul Perez',
                     email: 'raul.perez@example.com',
+                    password: 'password123',
                     reservas: [{
                         viaje: 'Maraton-Internacional-de-Mendoza',
                         fechaReserva: '15/06/2025'
@@ -281,6 +372,7 @@
                 '30333444': {
                     nombre: 'Laura Gomez',
                     email: 'laura.gomez@example.com',
+                    password: 'securepassword',
                     reservas: []
                 }
             };
@@ -304,10 +396,9 @@
                     if (reservaExistente) {
                         vistaIdentificacion.style.display = 'none';
                         mensajeDuplicado.className = 'mensaje-advertencia';
-                        // --- CAMBIO APLICADO AQUÍ ---
                         mensajeDuplicado.innerHTML = `
                             <h4>Atención</h4>
-                            <p>Tu reserva ya se realizó el día ${reservaExistente.fechaReserva}.</p>
+                            <p>Tu reserva para <strong>${nombreViajeLimpio}</strong> ya se realizó el día ${reservaExistente.fechaReserva}.</p>
                             <p>Para verificar el estado de tu reserva y/o abonar cuotas, tocá IR A MI CUENTA.</p>
                             <button onclick="alert('Redirigiendo a Mi Cuenta...');">Ir a mi Cuenta</button>`;
                         return;
@@ -321,31 +412,3 @@
                 } else {
                     document.getElementById('dni-nuevo').textContent = dni;
                     vistaNuevoUsuario.style.display = 'block';
-                }
-            });
-
-            // Lógica para los formularios de login y nuevo usuario
-            const formLogin = document.getElementById('form-login');
-            const formNuevoUsuario = document.getElementById('form-nuevo-usuario');
-            const mensajeFinal = document.getElementById('form-mensaje-final');
-            
-            formLogin.addEventListener('submit', function (e) {
-                e.preventDefault();
-                vistaLogin.style.display = 'none';
-                document.getElementById('info-viaje').style.display = 'none';
-                mensajeFinal.textContent = `¡Reserva confirmada para ${nombreViajeLimpio}! Gracias por volver a elegirnos.`;
-                mensajeFinal.className = 'mensaje-exito';
-            });
-
-            formNuevoUsuario.addEventListener('submit', function (e) {
-                e.preventDefault();
-                vistaNuevoUsuario.style.display = 'none';
-                document.getElementById('info-viaje').style.display = 'none';
-                mensajeFinal.textContent = `¡Felicitaciones! Tu cuenta fue creada y tu reserva para ${nombreViajeLimpio} fue confirmada. Recibirás un email con los detalles.`;
-                mensajeFinal.className = 'mensaje-exito';
-            });
-        });
-    </script>
-</body>
-
-</html>
